@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>RedBox - وبسایت دریافت کانفیگ رایگان</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Modern Persian Font (Shabnam) CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/shabnam-font@v5.6.1/dist/font-face.css">
+
+  <!-- Google Fonts: Unbounded, Space Grotesk, Almarai, and Russo One -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700;800&family=Russo+One&family=Space+Grotesk:wght@500;600;700&family=Unbounded:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --neon-red: #ff1a2b;
+      --glow-red: rgba(255, 26, 43, 0.45);
+      --dark-surface: #0a0a0d;
+      --farsi-font: 'Shabnam', 'Almarai', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      font-family: var(--farsi-font);
+      background-color: #060608;
+      color: #f3f4f6;
+      overflow-x: hidden;
+      min-height: 100vh;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .font-farsi {
+      font-family: var(--farsi-font) !important;
+    }
+
+    body.scroll-locked {
+      overflow: hidden !important;
+      touch-action: none;
+    }
+
+    .font-charismatic {
+      font-family: 'Unbounded', sans-serif;
+      letter-spacing: 0.04em;
+    }
+
+    .font-tech {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .font-sporty {
+      font-family: 'Russo One', sans-serif;
+      letter-spacing: 0.06em;
+      transform: skewX(-7deg);
+      display: inline-block;
+      text-transform: uppercase;
+    }
+
+    /* استایل کاریزماتیک، ثابت و قرمز برای ARMOON */
+    .armoon-static-red {
+      color: #ff1a2b;
+      font-family: 'Unbounded', sans-serif;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-shadow: 0 0 10px rgba(255, 26, 43, 0.5);
+      display: inline-block;
+    }
+
+    .header-action-btn-red {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 72px;
+      height: 32px;
+      padding: 0 12px;
+      border-radius: 8px;
+      background-color: #ff1a2b;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      box-shadow: 0 2px 10px rgba(255, 26, 43, 0.3);
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    @media (min-width: 640px) {
+      .header-action-btn-red {
+        min-width: 82px;
+        height: 34px;
+        padding: 0 14px;
+        font-size: 11px;
+        border-radius: 9px;
+      }
+    }
+
+    .header-action-btn-red:hover {
+      background-color: #e01424;
+      box-shadow: 0 0 16px rgba(255, 26, 43, 0.55);
+      transform: translateY(-1px);
+    }
+
+    .header-action-btn-red:active {
+      transform: scale(0.96);
+    }
+
+    .header-neon-divider {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, rgba(255, 26, 43, 0.85) 20%, #ff1a2b 50%, rgba(255, 26, 43, 0.85) 80%, transparent 100%);
+      box-shadow: 0 0 8px rgba(255, 26, 43, 0.9), 0 0 16px rgba(255, 26, 43, 0.45);
+      pointer-events: none;
+      z-index: 50;
+    }
+
+    .ambient-glow-top {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 900px;
+      height: 420px;
+      background: radial-gradient(circle at 50% 15%, rgba(255, 26, 43, 0.28) 0%, rgba(255, 26, 43, 0.05) 55%, transparent 80%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .ambient-glow-bottom {
+      position: fixed;
+      bottom: -150px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 350px;
+      background: radial-gradient(circle, rgba(255, 26, 43, 0.18) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .glass-card {
+      background: rgba(14, 14, 18, 0.88);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 26, 43, 0.28);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(255, 26, 43, 0.15);
+    }
+
+    .glass-card-green {
+      background: rgba(10, 18, 14, 0.88);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(34, 197, 94, 0.35);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.85), 0 0 30px rgba(34, 197, 94, 0.2);
+    }
+
+    .modal-close-round {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #9ca3af;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      z-index: 30;
+    }
+
+    .modal-close-round:hover {
+      background: rgba(255, 26, 43, 0.2);
+      border-color: #ff1a2b;
+      color: #ffffff;
+      transform: rotate(90deg);
+    }
+
+    .modal-close-round-green:hover {
+      background: rgba(34, 197, 94, 0.2);
+      border-color: #22c55e;
+      color: #ffffff;
+      transform: rotate(90deg);
+    }
+
+    /* باکس شیشه‌ای سازنده */
+    .glass-creator-badge {
+      background: rgba(255, 255, 255, 0.035);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(255, 26, 43, 0.07);
+    }
+
+    /* انیمیشن برق زدن دکمه راهنما */
+    @keyframes ultraGlossFlash {
+      0% {
+        transform: translateX(-160%) skewX(-30deg);
+        opacity: 0;
+      }
+      20% {
+        opacity: 0.85;
+      }
+      50%, 100% {
+        transform: translateX(200%) skewX(-30deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes guideSoftBeat {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 4px 22px rgba(255, 26, 43, 0.45);
+      }
+      50% {
+        transform: scale(1.02);
+        box-shadow: 0 6px 30px rgba(255, 26, 43, 0.75);
+      }
+    }
+
+    .guide-btn-pure-red {
+      background-color: #ff1a2b;
+      position: relative;
+      overflow: hidden;
+      animation: guideSoftBeat 3s ease-in-out infinite;
+    }
+
+    .guide-btn-pure-red::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -20%;
+      width: 45%;
+      height: 200%;
+      background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.25) 30%,
+        rgba(255, 255, 255, 0.95) 50%,
+        rgba(255, 255, 255, 0.25) 70%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      pointer-events: none;
+      animation: ultraGlossFlash 3.2s ease-in-out infinite;
+    }
+
+    .guide-btn-pure-red:hover {
+      background-color: #e01424;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(255, 26, 43, 0.85);
+    }
+
+    .red-glass-dashed {
+      background: rgba(255, 26, 43, 0.14);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1.5px dashed rgba(255, 255, 255, 0.65);
+      box-shadow: 0 8px 30px rgba(127, 29, 29, 0.35), 0 0 20px rgba(255, 26, 43, 0.22);
+    }
+
+    @keyframes warningRadarPulse {
+      0% {
+        transform: translateZ(0) scale(0.96);
+        box-shadow: 0 0 0 0 rgba(255, 26, 43, 0.85), 0 0 12px rgba(255, 26, 43, 0.5);
+        border-color: rgba(255, 26, 43, 0.6);
+      }
+      18% {
+        transform: translateZ(0) scale(1.08);
+        box-shadow: 0 0 0 6px rgba(255, 26, 43, 0.4), 0 0 24px rgba(255, 26, 43, 0.9);
+        border-color: #ffffff;
+      }
+      32% {
+        transform: translateZ(0) scale(1);
+        box-shadow: 0 0 0 12px rgba(255, 26, 43, 0), 0 0 16px rgba(255, 26, 43, 0.6);
+        border-color: #ff1a2b;
+      }
+      45% {
+        transform: translateZ(0) scale(1.04);
+        box-shadow: 0 0 0 4px rgba(255, 26, 43, 0.25), 0 0 20px rgba(255, 26, 43, 0.75);
+        border-color: rgba(255, 255, 255, 0.8);
+      }
+      65%, 100% {
+        transform: translateZ(0) scale(0.96);
+        box-shadow: 0 0 0 0 rgba(255, 26, 43, 0), 0 0 10px rgba(255, 26, 43, 0.35);
+        border-color: rgba(255, 26, 43, 0.5);
+      }
+    }
+
+    .alarm-badge-neon {
+      animation: warningRadarPulse 1.9s cubic-bezier(0.25, 0.8, 0.25, 1) infinite;
+      will-change: transform, box-shadow, border-color;
+      transform: translateZ(0);
+    }
+
+    .cascade-arrows {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      line-height: 0;
+      gap: 0.5px;
+    }
+
+    .cascade-arrows i {
+      display: block;
+      color: #ff1a2b;
+      line-height: 1;
+      font-size: 8px;
+    }
+
+    @media (min-width: 640px) {
+      .cascade-arrows i {
+        font-size: 11px;
+      }
+    }
+
+    @keyframes redPulse1 { 0%, 100% { opacity: 0.2; } 15%, 35% { opacity: 1; filter: drop-shadow(0 0 8px #ff1a2b); } 55% { opacity: 0.25; } }
+    @keyframes redPulse2 { 0%, 25%, 100% { opacity: 0.2; } 40%, 60% { opacity: 1; filter: drop-shadow(0 0 9px #ff1a2b); } 80% { opacity: 0.25; } }
+    @keyframes redPulse3 { 0%, 50%, 100% { opacity: 0.2; } 65%, 85% { opacity: 1; filter: drop-shadow(0 0 11px #ff1a2b); } 95% { opacity: 0.25; } }
+
+    .chevron-1 { animation: redPulse1 1.2s ease-in-out infinite; }
+    .chevron-2 { animation: redPulse2 1.2s ease-in-out infinite; }
+    .chevron-3 { animation: redPulse3 1.2s ease-in-out infinite; }
+
+    /* انیمیشن چشمک‌زن هماهنگ و یکپارچه برای پشت همه ۳۰ باکس */
+    @keyframes synchronizedBoxFlash {
+      0%, 100% {
+        box-shadow: 0 0 0px rgba(255, 26, 43, 0);
+        border-color: rgba(255, 26, 43, 0.15);
+      }
+      50% {
+        box-shadow: 0 0 18px rgba(255, 26, 43, 0.75), inset 0 0 8px rgba(255, 26, 43, 0.28);
+        border-color: rgba(255, 26, 43, 0.7);
+      }
+    }
+
+    .config-box {
+      background: linear-gradient(145deg, #121217, #09090d);
+      border: 1px solid rgba(255, 26, 43, 0.22);
+      transition: transform 0.25s ease, background 0.25s ease;
+      position: relative;
+      overflow: hidden;
+      transform: translateZ(0);
+      z-index: 1;
+      animation: synchronizedBoxFlash 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    .config-box:hover {
+      border-color: rgba(255, 26, 43, 0.95) !important;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px -4px rgba(255, 26, 43, 0.6) !important;
+    }
+
+    .box-title {
+      color: #ffffff;
+      transition: color 0.25s ease, text-shadow 0.25s ease;
+    }
+
+    .config-box.box-active {
+      animation: none !important;
+      border-color: #ff1a2b !important;
+      background: linear-gradient(145deg, #22070a, #0d0608) !important;
+      box-shadow: 0 0 24px rgba(255, 26, 43, 0.95), inset 0 0 14px rgba(255, 26, 43, 0.4) !important;
+    }
+
+    .config-box.box-active .box-title {
+      color: #ff1a2b !important;
+      text-shadow: 0 0 14px rgba(255, 26, 43, 0.95);
+    }
+
+    .config-box.box-active .box-subtitle {
+      color: rgba(255, 255, 255, 0.85) !important;
+    }
+
+    @keyframes modernShockwave {
+      0% { transform: scale(0.92); box-shadow: 0 0 35px rgba(255, 26, 43, 0.95); }
+      40% { transform: scale(1.06); box-shadow: 0 0 28px rgba(255, 26, 43, 0.75); }
+      100% { transform: scale(1); box-shadow: 0 0 22px rgba(255, 26, 43, 0.55); }
+    }
+
+    .box-shockwave-anim {
+      animation: modernShockwave 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    .fade-out {
+      opacity: 0 !important;
+      transform: scale(0.96) !important;
+      pointer-events: none !important;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .card-copy-badge {
+      transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+    }
+
+    .card-copy-badge.copied {
+      background-color: #15803d !important;
+      border-color: #22c55e !important;
+      color: #ffffff !important;
+      box-shadow: 0 0 14px rgba(34, 197, 94, 0.65) !important;
+    }
+  </style>
+</head>
+<body class="relative flex flex-col justify-between min-h-screen scroll-locked">
+
+  <!-- Ambient light blobs -->
+  <div class="ambient-glow-top"></div>
+  <div class="ambient-glow-bottom"></div>
+
+  <!-- PERSISTENT BACKDROP FOR INTRO FLOW -->
+  <div id="introFlowBackdrop" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md transition-all duration-300">
+    
+    <!-- 1. FIRST POPUP MODAL: WARNING (RED THEME) -->
+    <div id="warningModal" class="glass-card max-w-sm sm:max-w-md w-full rounded-2xl p-6 sm:p-7 text-center relative overflow-hidden shadow-2xl border border-red-500/40 z-20 transition-all duration-300">
+      
+      <button id="skipWarningX" class="modal-close-round" title="رد شدن">
+        <i class="fa-solid fa-xmark text-sm"></i>
+      </button>
+
+      <div class="absolute -top-16 -left-16 w-36 h-36 bg-red-600/25 rounded-full blur-2xl pointer-events-none"></div>
+      <div class="absolute -bottom-16 -right-16 w-36 h-36 bg-red-600/25 rounded-full blur-2xl pointer-events-none"></div>
+
+      <div class="alarm-badge-neon inline-flex items-center justify-center w-14 h-14 rounded-full bg-red-950/80 border border-red-500/60 mb-4 transition-all duration-200 relative">
+        <i class="fa-solid fa-triangle-exclamation text-2xl text-red-500"></i>
+      </div>
+
+      <div class="mb-4">
+        <h3 class="text-base sm:text-lg font-black text-red-500 mb-2 tracking-wide">توجه</h3>
+        <p class="text-sm sm:text-base font-bold text-gray-100 leading-relaxed px-1">
+          این پنل جهت استفاده رایگان طراحی شده و هرگونه فروش و سودجویی از آن <span class="text-[#ff1a2b] font-black drop-shadow-[0_0_8px_rgba(255,26,43,0.8)]">غیراخلاقی</span> می‌باشد.
+        </p>
+      </div>
+
+      <!-- متن داخل باکس شیشه‌ای سازنده -->
+      <div class="mb-5 flex justify-center select-none">
+        <div class="glass-creator-badge px-4 py-2 rounded-xl inline-flex items-center justify-center gap-1.5 sm:gap-2">
+          <span class="text-[11px] sm:text-xs font-bold text-gray-300 tracking-wide">طراحی شده توسط</span>
+          <span class="text-xs sm:text-sm armoon-static-red">ARMOON</span>
+        </div>
+      </div>
+
+      <button id="skipWarningBtn" 
+              class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-red-600 to-[#ff1a2b] hover:brightness-110 active:scale-[0.98] text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2.5 shadow-lg shadow-red-950/50 transition-all">
+        <span>رد شدن</span>
+        <i class="fa-solid fa-angles-left text-sm"></i>
+      </button>
+
+    </div>
+
+    <!-- 2. SECOND POPUP MODAL: CHARITY (GREEN THEME) -->
+    <div id="charityModal" class="glass-card-green max-w-sm sm:max-w-md w-full rounded-2xl p-5 sm:p-6 text-center absolute overflow-hidden shadow-2xl z-10 transition-all duration-300 hidden opacity-0 scale-95 max-h-[92vh] flex flex-col justify-between">
+      
+      <button id="skipCharityX" class="modal-close-round modal-close-round-green" title="بستن و رد شدن">
+        <i class="fa-solid fa-xmark text-sm"></i>
+      </button>
+
+      <div class="absolute -top-16 -left-16 w-36 h-36 bg-green-500/20 rounded-full blur-2xl pointer-events-none"></div>
+      <div class="absolute -bottom-16 -right-16 w-36 h-36 bg-green-500/20 rounded-full blur-2xl pointer-events-none"></div>
+
+      <div>
+        <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-emerald-950/60 border border-green-500/40 text-green-400 text-xl mb-3 shadow-lg shadow-green-950/50">
+          <i class="fa-solid fa-hand-holding-heart animate-pulse"></i>
+        </div>
+
+        <!-- متن دو خطی تفکیک‌شده -->
+        <div class="mb-3.5 px-1 leading-relaxed">
+          <p class="text-xs sm:text-sm font-bold text-gray-100">
+            جهت حمایت مالی از <span class="text-green-400 font-black drop-shadow-[0_0_8px_rgba(34,197,94,0.7)]">خیریه مکس قزوین</span>
+          </p>
+          <p class="text-[11px] sm:text-xs font-semibold text-gray-300 mt-1">
+            از طریق شماره کارت‌های پایین اقدام کنید
+          </p>
+        </div>
+
+        <div class="flex flex-col gap-2.5 mb-3.5">
+          
+          <!-- کارت ۱: اقتصادنوین -->
+          <div data-copy-card="6274121940023849" 
+               title="برای کپی کلیک کنید"
+               class="copy-card-item py-2.5 px-3 sm:px-3.5 rounded-xl bg-neutral-900/90 border border-green-500/35 hover:border-green-400/80 transition-all flex items-center justify-between cursor-pointer group active:scale-[0.98] shadow-inner select-none">
+            
+            <div class="flex items-center text-right min-w-[65px] sm:min-w-[75px]">
+              <span class="text-xs sm:text-sm font-bold text-gray-200 group-hover:text-green-300 transition-colors">
+                اقتصادنوین
+              </span>
+            </div>
+
+            <div class="flex items-center gap-2 sm:gap-3" dir="ltr">
+              <span class="font-tech text-xs sm:text-sm font-bold text-white tracking-wider whitespace-nowrap">
+                6274 1219 4002 3849
+              </span>
+              <div class="card-copy-badge w-[76px] sm:w-[82px] py-1 rounded-lg bg-emerald-950/80 border border-green-500/40 flex items-center justify-center gap-1.5 text-gray-200 flex-shrink-0">
+                <i class="fa-solid fa-copy text-[10px] copy-icon"></i>
+                <span class="text-[10px] sm:text-[11px] font-bold copy-text tracking-tight font-farsi whitespace-nowrap">کپی کردن</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- کارت ۲: سپه -->
+          <div data-copy-card="5892107044021593" 
+               title="برای کپی کلیک کنید"
+               class="copy-card-item py-2.5 px-3 sm:px-3.5 rounded-xl bg-neutral-900/90 border border-green-500/35 hover:border-green-400/80 transition-all flex items-center justify-between cursor-pointer group active:scale-[0.98] shadow-inner select-none">
+            
+            <div class="flex items-center text-right min-w-[65px] sm:min-w-[75px]">
+              <span class="text-xs sm:text-sm font-bold text-gray-200 group-hover:text-green-300 transition-colors">
+                سپه
+              </span>
+            </div>
+
+            <div class="flex items-center gap-2 sm:gap-3" dir="ltr">
+              <span class="font-tech text-xs sm:text-sm font-bold text-white tracking-wider whitespace-nowrap">
+                5892 1070 4402 1593
+              </span>
+              <div class="card-copy-badge w-[76px] sm:w-[82px] py-1 rounded-lg bg-emerald-950/80 border border-green-500/40 flex items-center justify-center gap-1.5 text-gray-200 flex-shrink-0">
+                <i class="fa-solid fa-copy text-[10px] copy-icon"></i>
+                <span class="text-[10px] sm:text-[11px] font-bold copy-text tracking-tight font-farsi whitespace-nowrap">کپی کردن</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- کارت ۳: ملی -->
+          <div data-copy-card="6037991899870228" 
+               title="برای کپی کلیک کنید"
+               class="copy-card-item py-2.5 px-3 sm:px-3.5 rounded-xl bg-neutral-900/90 border border-green-500/35 hover:border-green-400/80 transition-all flex items-center justify-between cursor-pointer group active:scale-[0.98] shadow-inner select-none">
+            
+            <div class="flex items-center text-right min-w-[65px] sm:min-w-[75px]">
+              <span class="text-xs sm:text-sm font-bold text-gray-200 group-hover:text-green-300 transition-colors">
+                ملی
+              </span>
+            </div>
+
+            <div class="flex items-center gap-2 sm:gap-3" dir="ltr">
+              <span class="font-tech text-xs sm:text-sm font-bold text-white tracking-wider whitespace-nowrap">
+                6037 9918 9987 0228
+              </span>
+              <div class="card-copy-badge w-[76px] sm:w-[82px] py-1 rounded-lg bg-emerald-950/80 border border-green-500/40 flex items-center justify-center gap-1.5 text-gray-200 flex-shrink-0">
+                <i class="fa-solid fa-copy text-[10px] copy-icon"></i>
+                <span class="text-[10px] sm:text-[11px] font-bold copy-text tracking-tight font-farsi whitespace-nowrap">کپی کردن</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <a href="https://www.instagram.com/max_charity?stkn=bHVhb2U0eGNkdGtq" 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           class="w-full mb-3 py-2.5 px-4 rounded-xl bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] hover:brightness-110 active:scale-[0.98] text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-pink-950/40 transition-all">
+          <i class="fa-brands fa-instagram text-base"></i>
+          <span>اینستاگرام خیریه مکس قزوین</span>
+        </a>
+      </div>
+
+      <button id="skipCharityBtn" 
+              class="w-full py-3 px-6 rounded-xl bg-gradient-to-r from-emerald-600 to-green-500 hover:brightness-110 active:scale-[0.98] text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2.5 shadow-lg shadow-green-950/50 transition-all">
+        <span>ورود به سایت</span>
+        <i class="fa-solid fa-arrow-left text-sm"></i>
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- HEADER -->
+  <header class="fixed top-0 inset-x-0 z-40 bg-[#08080c]/90 backdrop-blur-xl h-16 transition-all duration-200" dir="rtl">
+    <div class="w-full max-w-7xl mx-auto h-full px-4 sm:px-6 flex items-center justify-between gap-4">
+      
+      <div class="flex items-center flex-shrink-0">
+        <div class="flex items-center gap-1.5 sm:gap-2 select-none">
+          <span class="text-[11px] sm:text-xs font-bold text-white tracking-wide">طراحی شده توسط</span>
+          <span class="text-xs sm:text-sm armoon-static-red">ARMOON</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0" dir="ltr">
+        <a href="https://eitaa.com/arm00n" target="_blank" rel="noopener noreferrer" 
+           class="header-action-btn-red">
+          <span>Eitaa</span>
+        </a>
+        
+        <a href="https://t.me/iamarmoon" target="_blank" rel="noopener noreferrer" 
+           class="header-action-btn-red">
+          <span>Telegram</span>
+        </a>
+      </div>
+
+    </div>
+
+    <div class="header-neon-divider"></div>
+  </header>
+
+  <main class="relative z-10 flex-grow pt-24 pb-16 px-3 sm:px-6 max-w-7xl mx-auto w-full flex flex-col items-center">
+
+    <!-- RedBox Hero Title -->
+    <div class="text-center mt-3 mb-2 flex flex-col items-center select-none">
+      <h1 class="font-charismatic text-5xl sm:text-6xl md:text-7xl font-black uppercase tracking-wider leading-tight drop-shadow-[0_0_20px_rgba(255,26,43,0.5)]">
+        <span class="text-white">RED</span><span class="text-[#ff1a2b]">BOX</span>
+      </h1>
+      <p class="mt-2 text-sm sm:text-base text-gray-300 font-medium tracking-wide">
+        رِد <span class="text-[#ff1a2b] font-bold">باکس</span> وبسایت دریافت کانفیگ رایگان
+      </p>
+    </div>
+
+    <!-- دکمه راهنما -->
+    <div class="mt-4 mb-3 w-full max-w-xs sm:max-w-sm">
+      <button id="openGuideBtn" 
+              class="w-full py-3.5 px-5 rounded-xl guide-btn-pure-red text-white font-extrabold text-sm sm:text-base flex items-center justify-center gap-2.5 active:scale-[0.98] transition-all duration-200 select-none">
+        <i class="fa-solid fa-circle-question text-white text-lg drop-shadow-[0_0_8px_rgba(255,255,255,0.9)]"></i>
+        <span class="tracking-wide text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)]">راهنمای استفاده</span>
+      </button>
+    </div>
+
+    <!-- Download Buttons Section: لینک نسخه 2.3.10 -->
+    <div class="w-full max-w-xs sm:max-w-sm mb-6 flex flex-col gap-3">
+      <a href="https://github.com/2dust/v2rayNG/releases/download/2.3.10/v2rayNG_2.3.10_universal.apk" 
+         target="_blank" 
+         class="w-full py-3.5 px-6 rounded-xl bg-white text-black font-bold text-sm sm:text-base flex items-center justify-center gap-2.5 shadow-none border-none outline-none active:scale-[0.98] transition-transform duration-150">
+        <i class="fa-brands fa-android text-lg text-black"></i>
+        <span>دانلود برنامه <span class="font-sporty text-base sm:text-lg mx-1 text-neutral-950 tracking-normal">v2rayNG</span> «اندروید»</span>
+      </a>
+
+      <a href="https://apps.apple.com/us/app/incy/id6756943388" 
+         target="_blank" 
+         rel="noopener noreferrer" 
+         class="w-full py-3.5 px-6 rounded-xl bg-white text-black font-bold text-sm sm:text-base flex items-center justify-center gap-2.5 shadow-none border-none outline-none active:scale-[0.98] transition-transform duration-150">
+        <i class="fa-brands fa-apple text-lg text-black"></i>
+        <span>دانلود برنامه <span class="font-sporty text-base sm:text-lg mx-1 text-neutral-950 tracking-wider">INCY</span> «آیفون»</span>
+      </a>
+    </div>
+
+    <!-- Instruction Subtitle -->
+    <div class="text-center mb-6 mt-1 px-1 w-full max-w-lg flex justify-center">
+      <div class="inline-flex items-center justify-center gap-1.5 sm:gap-2.5 px-2.5 sm:px-4 py-2 rounded-2xl red-glass-dashed text-[10px] sm:text-sm font-medium whitespace-nowrap overflow-hidden max-w-full select-none">
+        
+        <div class="cascade-arrows">
+          <i class="fa-solid fa-chevron-down chevron-1"></i>
+          <i class="fa-solid fa-chevron-down chevron-2"></i>
+          <i class="fa-solid fa-chevron-down chevron-3"></i>
+        </div>
+
+        <span class="text-white drop-shadow-sm whitespace-nowrap">برای دریافت کانفیگ روی یکی از باکس های زیر کلیک کنید</span>
+
+        <div class="cascade-arrows">
+          <i class="fa-solid fa-chevron-down chevron-1"></i>
+          <i class="fa-solid fa-chevron-down chevron-2"></i>
+          <i class="fa-solid fa-chevron-down chevron-3"></i>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- کانتینر باکس‌ها: ترتیب چپ به راست همراه با نور قرمز چشمک‌زن هماهنگ -->
+    <div class="relative w-full max-w-6xl">
+      <div id="boxGridContainer" dir="ltr" class="w-full grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-4 relative z-10">
+        <!-- 30 Dynamic Boxes generated by JavaScript -->
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Guide Modal -->
+  <div id="guideModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
+    <div class="glass-card max-w-md w-full rounded-2xl p-6 relative overflow-hidden shadow-2xl border border-red-500/35 max-h-[90vh] flex flex-col">
+      
+      <div class="flex items-center justify-between border-b border-gray-800 pb-3 mb-4">
+        <div class="flex items-center gap-2 text-white font-bold text-lg">
+          <i class="fa-solid fa-book-open text-[#ff1a2b]"></i>
+          <span>راهنمای استفاده از <span class="text-[#ff1a2b]">کانفیگ ها</span></span>
+        </div>
+        <button id="closeGuideBtn" class="text-gray-400 hover:text-white p-1 rounded-lg hover:bg-white/10 transition-colors">
+          <i class="fa-solid fa-xmark text-xl"></i>
+        </button>
+      </div>
+
+      <div class="overflow-y-auto space-y-3 text-xs sm:text-sm text-gray-300 leading-relaxed pr-1 pl-1">
+        <div class="flex items-start gap-2.5 p-2.5 rounded-lg bg-white/5 border border-white/5">
+          <span class="flex-shrink-0 w-6 h-6 rounded-full bg-red-900/60 border border-red-500/50 text-white flex items-center justify-center text-xs font-bold font-charismatic">۱</span>
+          <p>حتما آخرین نسخه <span class="font-sporty text-white text-xs">v2rayNG</span> رو <a href="https://github.com/2dust/v2rayNG/releases/download/2.3.10/v2rayNG_2.3.10_universal.apk" target="_blank" class="text-[#ff1a2b] font-bold hover:underline">از اینجا</a> دانلود کنید.</p>
+        </div>
+
+        <div class="flex items-start gap-2.5 p-2.5 rounded-lg bg-white/5 border border-white/5">
+          <span class="flex-shrink-0 w-6 h-6 rounded-full bg-red-900/60 border border-red-500/50 text-white flex items-center justify-center text-xs font-bold font-charismatic">۲</span>
+          <p>روی یکی از ۳۰ باکس موجود در سایت کلیک کنید تا لینک اشتراک خودکار کپی شود</p>
+        </div>
+
+        <div class="flex items-start gap-2.5 p-2.5 rounded-lg bg-white/5 border border-white/5">
+          <span class="flex-shrink-0 w-6 h-6 rounded-full bg-red-900/60 border border-red-500/50 text-white flex items-center justify-center text-xs font-bold font-charismatic">۳</span>
+          <p>وارد برنامه <span class="font-sporty text-white text-xs">v2rayNG</span> شده و نماد <span class="text-red-400 font-bold">+</span> بالا گوشه و سپس گزینه <span class="text-white font-semibold">«کانفیگ را از کلیپ بورد وارد کنید»</span> را انتخاب کنید تا لیست کانفیگ ها نمایش داده شود « اگر زبان برنامه انگلیسی بود گزینه <span class="dir-ltr inline-block text-white font-semibold font-tech">import config from clipboard</span> را انتخاب نمایید »</p>
+        </div>
+
+        <div class="flex items-start gap-2.5 p-2.5 rounded-lg bg-white/5 border border-white/5">
+          <span class="flex-shrink-0 w-6 h-6 rounded-full bg-red-900/60 border border-red-500/50 text-white flex items-center justify-center text-xs font-bold font-charismatic">۴</span>
+          <p>جهت اطلاع از سالم بودن کانفیگ ها نماد سه نقطه گوشه بالا و سپس گزینه <span class="text-white font-semibold">«آزمایش تاخیر واقعی»</span> را انتخاب کنید «اگر زبان برنامه انگلیسی بود گزینه <span class="dir-ltr inline-block text-white font-semibold font-tech">Test real delays</span> را انتخاب نمایید»</p>
+        </div>
+
+        <div class="flex items-start gap-2.5 p-2.5 rounded-lg bg-white/5 border border-white/5">
+          <span class="flex-shrink-0 w-6 h-6 rounded-full bg-red-900/60 border border-red-500/50 text-white flex items-center justify-center text-xs font-bold font-charismatic">۵</span>
+          <p class="text-white font-medium">کانفیگ هایی که <span class="text-green-400 font-black drop-shadow-[0_0_8px_rgba(34,197,94,0.7)]">اعداد سبز</span> در کنارشان نمایش داده میشود سالم هستند « <span class="font-black text-white">هر چه عدد کمتر باشد</span> کانفیگ کیفیت بهتری دارد »</p>
+        </div>
+
+        <div class="flex items-start gap-2.5 p-2.5 rounded-lg bg-white/5 border border-white/5">
+          <span class="flex-shrink-0 w-6 h-6 rounded-full bg-red-900/60 border border-red-500/50 text-white flex items-center justify-center text-xs font-bold font-charismatic">۶</span>
+          <p>کانفیگ مدنظر را انتخاب کرده و در نهایت دکمه اتصال گوشه پایین را بزنید تا متصل شود</p>
+        </div>
+      </div>
+
+      <div class="mt-5 pt-3 border-t border-gray-800">
+        <button id="closeGuideBtnFooter" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-red-700 to-[#ff1a2b] text-white font-bold text-sm hover:brightness-110 active:scale-[0.98] transition-all">
+          متوجه شدم
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- اعلان Toast قرمز -->
+  <div id="copyToast" 
+       class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-4 sm:px-5 py-2.5 rounded-2xl bg-[#ff1a2b] border border-white/30 text-white text-xs sm:text-sm font-semibold shadow-[0_10px_35px_rgba(0,0,0,0.85),0_0_28px_rgba(255,26,43,0.85)] backdrop-blur-xl flex items-center justify-center gap-2.5 opacity-0 pointer-events-none transition-all duration-300 transform translate-y-4 max-w-[95vw] sm:max-w-max whitespace-nowrap">
+    <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-black/25 border border-white/20 flex items-center justify-center text-white flex-shrink-0">
+      <i class="fa-solid fa-check-double text-xs sm:text-sm text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]"></i>
+    </div>
+    <span id="toastMessage" class="tracking-wide text-white font-bold whitespace-nowrap drop-shadow-sm">لینک اشتراک با موفقیت کپی شد!</span>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      /* 1. DIRECT CLICK MODAL FLOW */
+      const introFlowBackdrop = document.getElementById('introFlowBackdrop');
+      const warningModal = document.getElementById('warningModal');
+      const charityModal = document.getElementById('charityModal');
+
+      const skipWarningBtn = document.getElementById('skipWarningBtn');
+      const skipWarningX = document.getElementById('skipWarningX');
+      const skipCharityBtn = document.getElementById('skipCharityBtn');
+      const skipCharityX = document.getElementById('skipCharityX');
+
+      function goToCharityModal() {
+        charityModal.classList.remove('hidden');
+        void charityModal.offsetWidth;
+        charityModal.classList.remove('opacity-0', 'scale-95');
+        charityModal.classList.add('opacity-100', 'scale-100');
+
+        warningModal.classList.add('fade-out');
+        setTimeout(() => {
+          warningModal.style.display = 'none';
+        }, 300);
+      }
+
+      function finishIntroFlow() {
+        charityModal.classList.add('fade-out');
+        introFlowBackdrop.classList.add('fade-out');
+        document.body.classList.remove('scroll-locked');
+        setTimeout(() => {
+          introFlowBackdrop.style.display = 'none';
+        }, 320);
+      }
+
+      skipWarningBtn.addEventListener('click', goToCharityModal);
+      skipWarningX.addEventListener('click', goToCharityModal);
+
+      skipCharityBtn.addEventListener('click', finishIntroFlow);
+      skipCharityX.addEventListener('click', finishIntroFlow);
+
+      /* 2. GENERATE 30 CONFIG BOXES & SINGLE-SELECT LOGIC */
+      const boxContainer = document.getElementById('boxGridContainer');
+      let activeBoxElement = null;
+
+      const boxFeedLinks = [
+        "https://jyztw9e3uams.e8zdddepuits.workers.dev/feed/UMK61XDI", // 1
+        "https://ysz9tyevuiqs.beznitewu8ws.workers.dev/feed/GKWO2JA9", // 2
+        "https://4ozv5te9unqs.6oza9xebuhbs.workers.dev/feed/Z662RFF5", // 3
+        "https://lzz1mzewuais.ahzroke5u35s.workers.dev/feed/CY88X92K", // 4
+        "https://3qzk5deiukqs.hzzwjfeyui6s.workers.dev/feed/CSPM9527", // 5
+        "https://x7zp36ecurrs.k9zdixezur8s.workers.dev/feed/OU7RNJ1G", // 6
+        "https://glzwqjepudms.xjztxmedumfs.workers.dev/feed/CXWA3NJC", // 7
+        "https://rezra8ehunts.jgzxdvehubms.workers.dev/feed/BN8V7CXH", // 8
+        "https://1uz1kgegu4fs.7tz3m2epuuhs.workers.dev/feed/80A94M6O", // 9
+        "https://hez7aue0u3ls.bnzmgwelugus.workers.dev/feed/0DUHUJLF", // 10
+        "https://7nzl5mekuw3s.wqzpzweuulss.workers.dev/feed/4M2BOWXQ", // 11
+        "https://e6zxrpenuuus.7jzbgje0u1is.workers.dev/feed/RQ3DPU73", // 12
+        "https://rozaq0ezukgs.70z7qhepurps.workers.dev/feed/ENPZQ24R", // 13
+        "https://hqzf5beduzhs.wazxgye8uogs.workers.dev/feed/JIQF6VMY", // 14
+        "https://b5zfete3u62s.ylzw3aefutns.workers.dev/feed/0CHU36DR", // 15
+        "https://2bz6dhe4uj9s.98zoloeeuaxs.workers.dev/feed/OCHKRAWI", // 16
+        "https://m1z1wyeeulgs.agz1o7exuhcs.workers.dev/feed/ZD8IIAPP", // 17
+        "https://8nzoi2e2uw9s.nqzwmfe3ucss.workers.dev/feed/GK125KG6", // 18
+        "https://9gzz8femurrs.t6z0tweuugks.workers.dev/feed/ZF0WLC35", // 19
+        "https://q4zgz0e1upts.plzic4ejuuvs.workers.dev/feed/MCF3T4MY", // 20
+        "https://fozh62e1up6s.zqztjse4uq0s.workers.dev/feed/ETRWSCCZ", // 21
+        "https://axz4m9e8ukrs.uyz18eekupts.workers.dev/feed/STGGK109", // 22
+        "https://d4zqpqe1u2ts.u9z2g5ekuw9s.workers.dev/feed/Z5CR3RXL", // 23
+        "https://zfzvo9ehuqts.g3z8z6eiu97s.workers.dev/feed/AUE3NY5D", // 24
+        "https://ilza2seuuids.vuzp7dequras.workers.dev/feed/0CFZAEVE", // 25
+        "https://9zzqh3e7uyss.99zlh5elu53s.workers.dev/feed/GJEQG5TM", // 26
+        "https://99z1upejumas.0sznzfe8uaps.workers.dev/feed/B9PPY47E", // 27
+        "https://gtzbk9emu6fs.c7zc6veauq5s.workers.dev/feed/GHL94ITZ", // 28
+        "https://gtzbk9emu6fs.c7zc6veauq5s.workers.dev/feed/TTLY8485", // 29
+        "https://99z1upejumas.0sznzfe8uaps.workers.dev/feed/B9PPY47E"  // 30
+      ];
+
+      for (let i = 1; i <= 30; i++) {
+        const box = document.createElement('div');
+        box.className = 'config-box p-2.5 sm:p-4 rounded-2xl flex flex-col items-center justify-center cursor-pointer group min-h-[78px] sm:min-h-[92px]';
+        box.dataset.config = boxFeedLinks[i - 1];
+
+        box.innerHTML = `
+          <span class="box-title font-charismatic font-bold text-xs sm:text-base select-none">BOX ${i}</span>
+          <span class="box-subtitle text-[10px] sm:text-xs text-gray-400 mt-1 font-medium group-hover:text-gray-200 transition-colors font-farsi">کلیک کنید</span>
+        `;
+
+        box.addEventListener('click', () => handleBoxClick(box));
+        boxContainer.appendChild(box);
+      }
+
+      function handleBoxClick(boxElement) {
+        if (activeBoxElement && activeBoxElement !== boxElement) {
+          activeBoxElement.classList.remove('box-active');
+        }
+
+        boxElement.classList.remove('box-shockwave-anim');
+        void boxElement.offsetWidth;
+        boxElement.classList.add('box-shockwave-anim', 'box-active');
+
+        activeBoxElement = boxElement;
+
+        safeCopy(boxElement.dataset.config);
+        showToast('لینک اشتراک با موفقیت کپی شد!');
+      }
+
+      /* 3. CLIPBOARD & TOAST */
+      const copyToast = document.getElementById('copyToast');
+      const toastMessage = document.getElementById('toastMessage');
+      let toastTimeout = null;
+
+      function showToast(msg = 'لینک اشتراک با موفقیت کپی شد!') {
+        if (toastTimeout) clearTimeout(toastTimeout);
+        toastMessage.textContent = msg;
+        copyToast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+        copyToast.classList.add('opacity-100', 'translate-y-0');
+
+        toastTimeout = setTimeout(() => {
+          copyToast.classList.remove('opacity-100', 'translate-y-0');
+          copyToast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+        }, 1800);
+      }
+
+      function safeCopy(text) {
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard.writeText(text).catch(() => fallbackCopy(text));
+        } else {
+          fallbackCopy(text);
+        }
+      }
+
+      function fallbackCopy(text) {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.setAttribute('readonly', '');
+        textarea.setAttribute('inputmode', 'none');
+        textarea.style.position = 'fixed';
+        textarea.style.left = '-9999px';
+        textarea.style.top = '-9999px';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        
+        textarea.select();
+        try {
+          document.execCommand('copy');
+        } catch (err) {
+          console.error('Fallback copy error:', err);
+        }
+        document.body.removeChild(textarea);
+      }
+
+      /* انیمیشن کپی برای کارت‌های بانکی */
+      document.querySelectorAll('.copy-card-item').forEach(card => {
+        let badgeTimeout = null;
+        card.addEventListener('click', () => {
+          const cardNumber = card.getAttribute('data-copy-card');
+          safeCopy(cardNumber);
+
+          const badge = card.querySelector('.card-copy-badge');
+          const icon = badge.querySelector('.copy-icon');
+          const text = badge.querySelector('.copy-text');
+
+          if (badgeTimeout) clearTimeout(badgeTimeout);
+
+          badge.classList.add('copied');
+          icon.className = 'fa-solid fa-check-double text-[10px] copy-icon';
+          text.textContent = 'کپی شد';
+
+          badgeTimeout = setTimeout(() => {
+            badge.classList.remove('copied');
+            icon.className = 'fa-solid fa-copy text-[10px] copy-icon';
+            text.textContent = 'کپی کردن';
+          }, 2000);
+        });
+      });
+
+      /* 4. GUIDE MODAL */
+      const openGuideBtn = document.getElementById('openGuideBtn');
+      const closeGuideBtn = document.getElementById('closeGuideBtn');
+      const closeGuideBtnFooter = document.getElementById('closeGuideBtnFooter');
+      const guideModal = document.getElementById('guideModal');
+
+      function openModal() {
+        document.body.classList.add('scroll-locked');
+        guideModal.classList.remove('hidden');
+        setTimeout(() => {
+          guideModal.classList.remove('opacity-0');
+          guideModal.classList.add('opacity-100');
+        }, 10);
+      }
+
+      function closeModal() {
+        guideModal.classList.remove('opacity-100');
+        guideModal.classList.add('opacity-0');
+        
+        const isIntroActive = introFlowBackdrop.style.display !== 'none' && !introFlowBackdrop.classList.contains('fade-out');
+        if (!isIntroActive) {
+          document.body.classList.remove('scroll-locked');
+        }
+        setTimeout(() => {
+          guideModal.classList.add('hidden');
+        }, 300);
+      }
+
+      openGuideBtn.addEventListener('click', openModal);
+      closeGuideBtn.addEventListener('click', closeModal);
+      closeGuideBtnFooter.addEventListener('click', closeModal);
+
+      guideModal.addEventListener('click', (e) => {
+        if (e.target === guideModal) closeModal();
+      });
+
+    });
+  </script>
+</body>
+</html>
