@@ -1,0 +1,2449 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>استادیاب | جستجوی شماره تماس اساتید</title>
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/shabnam-font@v5.0.1/dist/font-face.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-dark-1: #0b0217;
+      --bg-dark-2: #1e0836;
+      --bg-dark-3: #320d5c;
+      --glass-bg: rgba(255, 255, 255, 0.08);
+      --glass-border: rgba(255, 255, 255, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Shabnam', sans-serif;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--bg-dark-1), var(--bg-dark-2), var(--bg-dark-3), #120124);
+      background-size: 300% 300%;
+      animation: dynamicGradient 14s ease infinite;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 68px;
+      padding-bottom: 0px;
+      overflow-x: hidden;
+    }
+
+    @keyframes dynamicGradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 52px;
+      background: #ffffff;
+      box-shadow: 0 3px 14px rgba(0,0,0,0.15);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      z-index: 1000;
+    }
+
+    .brand-title {
+      color: #1a1a2e;
+      font-weight: 700;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .brand-title span.author {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      letter-spacing: 1.2px;
+      color: #5a189a;
+      font-size: 15.5px;
+      white-space: nowrap;
+    }
+
+    .top-links {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      width: 86px;
+      height: 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 12.5px;
+      font-weight: 700;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      flex-shrink: 0;
+    }
+
+    .nav-btn.eitaa {
+      background: linear-gradient(135deg, #e65100, #f57c00);
+      color: #fff;
+    }
+
+    .nav-btn.telegram {
+      background: linear-gradient(135deg, #0088cc, #00c6ff);
+      color: #fff;
+    }
+
+    .main-container {
+      width: 92%;
+      max-width: 850px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      flex: 1 0 auto;
+      padding-bottom: 35px;
+    }
+
+    .brand-hero {
+      width: 100%;
+      max-width: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 12px;
+      margin-bottom: 0px;
+    }
+
+    .hero-logo-img {
+      width: 50%;
+      max-width: 290px;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 8px 22px rgba(199, 125, 255, 0.4));
+      transition: transform 0.3s ease;
+    }
+
+    .hero-logo-img:hover {
+      transform: scale(1.02);
+    }
+
+    /* کپسولی و افکت برق زدن */
+    .subtitle-glass-capsule {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(30, 8, 54, 0.65);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1.5px solid #ffd166;
+      border-radius: 9px;
+      padding: 3px 14px;
+      margin-top: 14px;
+      margin-bottom: 22px;
+      overflow: hidden;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3), 0 0 10px rgba(255, 209, 102, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+    }
+
+    .subtitle-glass-capsule::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -120%;
+      width: 60%;
+      height: 200%;
+      background: linear-gradient(
+        120deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.5) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      transform: skewX(-25deg);
+      animation: gleamEffect 2.8s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes gleamEffect {
+      0%, 40% { left: -140%; }
+      80%, 100% { left: 160%; }
+    }
+
+    .hero-subtitle-text {
+      font-size: 10px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 0.1px;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+      position: relative;
+      z-index: 1;
+    }
+
+    .search-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      margin-bottom: 25px;
+    }
+
+    .search-input-box {
+      width: 100%;
+      height: 54px;
+      background: #ffffff;
+      border: 2.5px solid transparent;
+      border-radius: 36px;
+      padding: 0 54px 0 50px;
+      font-size: 15.5px;
+      font-weight: 600;
+      color: #2b004a;
+      outline: none;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.32);
+      transition: all 0.3s ease;
+      user-select: text;
+    }
+
+    .search-input-box:focus {
+      border-color: #c77dff;
+    }
+
+    .search-icon-anim {
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #7b2cbf;
+      font-size: 20px;
+      animation: pulseSearch 2s infinite ease-in-out;
+      pointer-events: none;
+    }
+
+    @keyframes pulseSearch {
+      0%, 100% { transform: translateY(-50%) scale(1); }
+      50% { transform: translateY(-50%) scale(1.15) rotate(10deg); }
+    }
+
+    .clear-search-btn {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 28px;
+      height: 28px;
+      background: #ff4d6d;
+      border-radius: 50%;
+      color: #fff;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 13.5px;
+    }
+
+    .home-actions-wrapper {
+      width: 100%;
+      max-width: 600px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 30px;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .home-actions-wrapper.hidden-searching {
+      display: none !important;
+    }
+
+    .quick-actions-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      width: 100%;
+    }
+
+    .ratio-10-7-card {
+      position: relative;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 24px;
+      aspect-ratio: 10 / 7;
+      cursor: pointer;
+      overflow: hidden;
+      display: block;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .card-marakez {
+      background-image: url('images/marakez.jpg');
+      border: 1.5px solid rgba(255, 42, 81, 0.85);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 15px rgba(255, 0, 85, 0.3), inset 0 0 10px rgba(255, 0, 85, 0.15);
+    }
+    .card-marakez:hover {
+      border-color: #ff2a51;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45), 0 0 26px rgba(255, 42, 81, 0.65), inset 0 0 14px rgba(255, 42, 81, 0.3);
+    }
+
+    .card-ertebat {
+      background-image: url('images/ertebat.jpg');
+      border: 1.5px solid rgba(0, 240, 255, 0.85);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 15px rgba(0, 240, 255, 0.3), inset 0 0 10px rgba(0, 240, 255, 0.15);
+    }
+    .card-ertebat:hover {
+      border-color: #00f0ff;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45), 0 0 26px rgba(0, 240, 255, 0.65), inset 0 0 14px rgba(0, 240, 255, 0.3);
+    }
+
+    .ratio-10-7-card:hover {
+      transform: translateY(-4px) scale(1.015);
+    }
+    .ratio-10-7-card:active {
+      transform: scale(0.98);
+    }
+
+    .ratio-24-7-card {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 24 / 7;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 24px;
+      text-decoration: none;
+      cursor: pointer;
+      overflow: hidden;
+      display: block;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .card-poshtibanan {
+      background-image: url('images/poshtibanan.jpg');
+      border: 1.5px solid rgba(6, 214, 160, 0.85);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 16px rgba(6, 214, 160, 0.3), inset 0 0 10px rgba(6, 214, 160, 0.15);
+    }
+    .card-poshtibanan:hover {
+      border-color: #06d6a0;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45), 0 0 26px rgba(6, 214, 160, 0.65), inset 0 0 14px rgba(6, 214, 160, 0.3);
+    }
+
+    .card-ozviat {
+      background-image: url('images/ozviat.jpg');
+      border: 1.5px solid rgba(255, 133, 0, 0.85);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 16px rgba(255, 109, 0, 0.3), inset 0 0 10px rgba(255, 109, 0, 0.15);
+    }
+    .card-ozviat:hover {
+      border-color: #ff8500;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45), 0 0 26px rgba(255, 133, 0, 0.65), inset 0 0 14px rgba(255, 133, 0, 0.3);
+    }
+
+    .card-mypnu {
+      background-image: url('images/mypnu.jpg');
+      border: 1.5px solid rgba(255, 209, 102, 0.9);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 16px rgba(255, 209, 102, 0.35), inset 0 0 10px rgba(255, 209, 102, 0.18);
+    }
+    .card-mypnu:hover {
+      border-color: #ffd166;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45), 0 0 26px rgba(255, 209, 102, 0.7), inset 0 0 14px rgba(255, 209, 102, 0.3);
+    }
+
+    .ratio-24-7-card:hover {
+      transform: translateY(-4px) scale(1.015);
+    }
+    .ratio-24-7-card:active {
+      transform: scale(0.98);
+    }
+
+    .results-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .result-card, .campus-box-card, .expert-box-card, .support-city-card {
+      position: relative;
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 2px solid var(--glass-border);
+      border-radius: 26px;
+      padding: 24px 20px 22px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.35);
+      transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+      animation: fadeIn 0.4s ease forwards;
+    }
+
+    .result-card.glow-green, .campus-box-card.glow-green, .expert-box-card.glow-green, .support-city-card.glow-green {
+      border-color: #06d6a0 !important;
+      box-shadow: 0 0 28px rgba(6, 214, 160, 0.85), inset 0 0 12px rgba(6, 214, 160, 0.25) !important;
+      transform: scale(1.015);
+    }
+
+    .card-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      text-align: center;
+      margin-bottom: 20px;
+      width: 100%;
+    }
+
+    .prof-name {
+      font-size: 21px;
+      font-weight: 800;
+      color: #ffffff;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    .contact-glass-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: rgba(0, 0, 0, 0.42);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.4), 0 4px 18px rgba(157, 78, 221, 0.2);
+      border-radius: 14px;
+      padding: 8px 20px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      direction: ltr;
+      max-width: 95%;
+      transition: border-color 0.3s ease, background 0.3s ease;
+    }
+
+    .contact-glass-pill i {
+      font-size: 16px;
+      color: #e0aaff;
+      flex-shrink: 0;
+      transition: color 0.3s ease;
+    }
+
+    .contact-digits {
+      font-family: 'Shabnam', sans-serif !important;
+      font-size: 21px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: #00f0ff;
+      line-height: 1;
+      text-shadow: 0 0 12px rgba(0, 240, 255, 0.65), 0 2px 4px rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+    .contact-digits.copied-glow {
+      color: #06d6a0 !important;
+      text-shadow: 0 0 18px rgba(6, 214, 160, 0.95), 0 0 8px rgba(6, 214, 160, 0.6) !important;
+      transform: scale(1.05);
+    }
+
+    .contact-glass-pill:has(.copied-glow) i {
+      color: #06d6a0 !important;
+    }
+
+    .contact-eitaa-id {
+      font-family: 'Montserrat', sans-serif !important;
+      font-size: 15.5px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      color: #ffd166;
+      text-shadow: 0 0 8px rgba(255, 209, 102, 0.4);
+      white-space: nowrap !important;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 250px;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1.2;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    .contact-eitaa-id.copied-glow {
+      color: #06d6a0 !important;
+      text-shadow: 0 0 16px rgba(6, 214, 160, 0.95) !important;
+    }
+
+    .card-actions {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 520px;
+    }
+
+    .action-btn {
+      position: relative;
+      flex: 1 1 0;
+      min-width: 0;
+      padding: 11px 8px;
+      border: 1.2px solid transparent;
+      border-radius: 12px;
+      color: #fff;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+      white-space: nowrap;
+      overflow: hidden;
+      transform: scale(1);
+      transition: transform 0.25s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .action-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-call {
+      background: linear-gradient(135deg, #1e90ff, #0056b3);
+      border-color: rgba(0, 240, 255, 0.8);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25), 0 0 12px rgba(0, 240, 255, 0.35);
+    }
+    .btn-call:hover {
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35), 0 0 20px rgba(0, 240, 255, 0.65);
+    }
+
+    .btn-sms {
+      background: linear-gradient(135deg, #ffea00, #ffd600, #ffc400);
+      color: #111111 !important;
+      border-color: rgba(255, 234, 0, 0.9);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25), 0 0 12px rgba(255, 214, 0, 0.45);
+    }
+    .btn-sms i {
+      color: #111111 !important;
+    }
+    .btn-sms:hover {
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35), 0 0 20px rgba(255, 214, 0, 0.75);
+    }
+
+    .btn-eitaa {
+      background: linear-gradient(135deg, #e65100, #f57c00);
+      border-color: rgba(255, 140, 0, 0.85);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25), 0 0 12px rgba(255, 109, 0, 0.4);
+    }
+    .btn-eitaa:hover {
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35), 0 0 20px rgba(255, 109, 0, 0.7);
+    }
+
+    .btn-insta {
+      background: linear-gradient(135deg, #f58529, #dd2a7b, #8134af, #515bd4);
+      color: #fff !important;
+      border-color: rgba(255, 90, 150, 0.85);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25), 0 0 12px rgba(221, 42, 123, 0.45);
+    }
+    .btn-insta:hover {
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35), 0 0 20px rgba(221, 42, 123, 0.75);
+    }
+
+    .btn-copy {
+      background: linear-gradient(135deg, #e63946, #b5179e);
+      border-color: rgba(255, 77, 109, 0.85);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25), 0 0 12px rgba(230, 57, 70, 0.38);
+      overflow: hidden;
+    }
+    .btn-copy:hover {
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35), 0 0 20px rgba(230, 57, 70, 0.65);
+    }
+
+    .btn-copy::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #059669, #10b981, #06d6a0);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      z-index: 1;
+      border-radius: inherit;
+      pointer-events: none;
+    }
+
+    .btn-copy span, .btn-copy i {
+      position: relative;
+      z-index: 2;
+      transition: opacity 0.2s ease;
+    }
+
+    .btn-copy.copied {
+      transform: scale(1.05);
+      border-color: #06d6a0 !important;
+      box-shadow: 0 4px 22px rgba(6, 214, 160, 0.75), 0 0 18px rgba(6, 214, 160, 0.9) !important;
+    }
+
+    .btn-copy.copied::before {
+      opacity: 1;
+    }
+
+    .multi-phone-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+    }
+
+    .phone-sub-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.24);
+      padding: 12px 8px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .no-results {
+      padding: 30px;
+      color: #d8b4fe;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(8, 2, 17, 0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      opacity: 0;
+      visibility: hidden;
+      padding: 20px 10px;
+    }
+
+    .modal-glass-card {
+      background: rgba(36, 12, 64, 0.85);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border-radius: 28px;
+      width: 90%;
+      max-width: 440px;
+      padding: 35px 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+      transform: scale(0.9);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-overlay.active .modal-glass-card {
+      transform: scale(1);
+    }
+
+    .modal-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.7;
+      margin-bottom: 25px;
+    }
+
+    .support-modal-title {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 18px;
+      line-height: 1.45;
+    }
+
+    .support-title-line1 {
+      font-size: 17.5px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .support-title-line2 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .campus-modal-card {
+      max-width: 540px;
+      width: 95%;
+      max-height: 86vh;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 30px 22px 25px 22px;
+      position: relative;
+      border-radius: 24px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, 0.45) rgba(255, 255, 255, 0.05);
+    }
+
+    .campus-modal-card::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .campus-modal-card::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 10px;
+      margin: 10px 0;
+    }
+
+    .campus-modal-card::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.45);
+      border-radius: 10px;
+      transition: background 0.25s ease;
+    }
+
+    .campus-modal-card::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    .modal-sticky-header {
+      position: sticky;
+      top: -15px;
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      z-index: 100;
+      margin-top: -18px;
+      margin-bottom: 2px;
+      pointer-events: none;
+    }
+
+    .modal-close-btn {
+      pointer-events: auto;
+      width: 32px;
+      height: 32px;
+      min-width: 32px;
+      min-height: 32px;
+      border-radius: 50%;
+      background: #ff4d6d;
+      border: none;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 15px;
+      box-shadow: 0 4px 14px rgba(255, 77, 109, 0.45);
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .modal-close-btn:hover {
+      transform: scale(1.12);
+      background: #ff2a51;
+    }
+
+    .campus-cards-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 10px;
+    }
+
+    .campus-box-name {
+      font-size: 19px;
+      font-weight: 800;
+      color: #ffd166;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+      margin-bottom: 8px;
+    }
+
+    .city-accordion-btn {
+      position: relative;
+      width: 100%;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(6, 214, 160, 0.09));
+      border: 1.8px dashed #10b981;
+      border-radius: 14px;
+      color: #34d399;
+      padding: 11px 40px;
+      font-size: 14.5px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      white-space: nowrap;
+      transition: all 0.3s ease;
+    }
+
+    .city-title-wrapper {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-weight: 900;
+      letter-spacing: 0.3px;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+    }
+
+    .city-title-icon {
+      font-size: 18px;
+      color: #ff2a51;
+      filter: drop-shadow(0 0 8px rgba(255, 42, 81, 0.8)) drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
+      animation: floatLocation 2.4s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatLocation {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-3px) scale(1.08); }
+    }
+
+    .city-accordion-btn:hover {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(6, 214, 160, 0.18));
+      border-color: #34d399;
+      box-shadow: 0 6px 20px rgba(6, 214, 160, 0.35);
+      transform: translateY(-2px);
+    }
+
+    .city-accordion-btn .chevron-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      transition: transform 0.35s ease;
+      font-size: 14px;
+    }
+
+    .city-accordion-btn.expanded .chevron-icon {
+      transform: translateY(-50%) rotate(180deg);
+    }
+
+    .accordion-content-list {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 14px;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
+    }
+
+    .accordion-content-list.open {
+      max-height: 4500px;
+      opacity: 1;
+    }
+
+    .support-person-row {
+      background: rgba(0, 0, 0, 0.32);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 16px;
+      padding: 14px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .support-person-name {
+      font-size: 16px;
+      font-weight: 800;
+      color: #ffffff;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+    }
+
+    .support-person-role {
+      font-size: 13px;
+      color: #c77dff;
+      font-weight: 700;
+      margin-top: -6px;
+    }
+
+    .qazvin-dept-row {
+      background: rgba(0, 0, 0, 0.32);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 16px;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .qazvin-dept-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #e0aaff;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+    }
+
+    .ivr-instruction-box {
+      background: rgba(0, 0, 0, 0.38);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 16px;
+      padding: 16px 14px;
+      width: 100%;
+      margin-bottom: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .ivr-text {
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: #ffffff;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .expert-majors-text {
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: #ffffff;
+      font-weight: 700;
+      margin-top: 12px;
+      background: rgba(0, 0, 0, 0.28);
+      padding: 10px 14px;
+      border-radius: 10px;
+      width: 100%;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+    }
+
+    .site-footer {
+      width: 100%;
+      padding: 16px 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(14, 3, 29, 0.82);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
+      margin-top: auto;
+    }
+
+    .footer-text {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #d8b4fe;
+      letter-spacing: 0.2px;
+      text-align: center;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+    }
+
+    .footer-text span.brand-hl {
+      color: #ffd166;
+      font-weight: 900;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding-top: 64px;
+      }
+      .top-nav {
+        height: 46px;
+        padding: 0 12px;
+      }
+      .brand-title {
+        font-size: 11.5px;
+        gap: 4px;
+      }
+      .brand-title span.author {
+        font-size: 13px;
+        letter-spacing: 0.8px;
+      }
+      .nav-btn {
+        width: 70px;
+        height: 28px;
+        font-size: 11px;
+        border-radius: 6px;
+      }
+      .brand-hero {
+        margin-top: 8px;
+        margin-bottom: 0px;
+      }
+      .hero-logo-img {
+        width: 65%;
+        max-width: 230px;
+      }
+      .subtitle-glass-capsule { 
+        padding: 2.5px 10px; 
+        border-radius: 8px;
+        margin-top: 8px;
+        margin-bottom: 18px; 
+      }
+      .hero-subtitle-text { font-size: 9px; }
+      
+      .search-input-box {
+        height: 48px;
+        font-size: 14.5px;
+        padding: 0 46px 0 42px;
+      }
+      .search-icon-anim {
+        font-size: 18px;
+        right: 15px;
+      }
+      .clear-search-btn {
+        width: 25px;
+        height: 25px;
+        font-size: 12px;
+        left: 13px;
+      }
+
+      .home-actions-wrapper {
+        gap: 12px;
+      }
+      .quick-actions-row {
+        gap: 12px;
+      }
+      .ratio-10-7-card {
+        border-radius: 18px;
+      }
+      .ratio-24-7-card {
+        border-radius: 18px;
+      }
+
+      .action-btn {
+        padding: 9px 4px;
+        font-size: 12px;
+        gap: 4px;
+        border-radius: 10px;
+      }
+      .contact-digits {
+        font-size: 19px;
+        letter-spacing: 1.5px;
+      }
+      .contact-eitaa-id {
+        font-size: 14px;
+        max-width: 190px;
+      }
+      .campus-modal-card {
+        padding: 22px 14px 20px 14px;
+        border-radius: 20px;
+      }
+      .modal-sticky-header {
+        top: -10px;
+        margin-top: -12px;
+      }
+      .city-accordion-btn {
+        font-size: 13px;
+        padding: 9px 28px;
+      }
+      .footer-text {
+        font-size: 11.2px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="top-nav">
+    <div class="brand-title">
+      ایده و طراحی توسط <span class="author">ARMOON</span>
+    </div>
+    <div class="top-links">
+      <a href="https://eitaa.com/arm00n" target="_blank" class="nav-btn eitaa">
+        <i class="fa-solid fa-paper-plane"></i> ایتا
+      </a>
+      <a href="https://t.me/iamarmoon" target="_blank" class="nav-btn telegram">
+        <i class="fa-brands fa-telegram"></i> تلگرام
+      </a>
+    </div>
+  </header>
+
+  <main class="main-container">
+    <div class="brand-hero">
+      <img src="images/logo.png" alt="استادیاب" class="hero-logo-img">
+    </div>
+
+    <div class="subtitle-glass-capsule">
+      <span class="hero-subtitle-text">جستجوی شماره تماس اساتید دانشگاه پیام نور استان قزوین</span>
+    </div>
+
+    <div class="search-wrapper">
+      <i class="fa-solid fa-magnifying-glass search-icon-anim"></i>
+      <input type="text" id="searchInput" class="search-input-box" placeholder="نام استاد مدنظر را تایپ کنید...">
+      <div id="clearSearch" class="clear-search-btn" title="پاک کردن متن">
+        <i class="fa-solid fa-xmark"></i>
+      </div>
+    </div>
+
+    <div class="home-actions-wrapper" id="homeActionsWrapper">
+      <div class="quick-actions-row">
+        <div class="ratio-10-7-card card-marakez" id="openCampusBtn"></div>
+        <div class="ratio-10-7-card card-ertebat" id="openExpertsBtn"></div>
+      </div>
+
+      <div class="ratio-24-7-card card-poshtibanan" id="openSupportBtn"></div>
+      <a href="https://eitaa.com/joinchat/137627106Ccda4d2e78d" target="_blank" class="ratio-24-7-card card-ozviat"></a>
+      <a href="https://mypnu.github.io" target="_blank" class="ratio-24-7-card card-mypnu" id="boxMyPnu"></a>
+    </div>
+
+    <div id="resultsList" class="results-container"></div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-text">
+      تمامی حقوق مادی و معنوی این سامانه متعلق به <span class="brand-hl">استادیاب</span> می‌باشد.
+    </div>
+  </footer>
+
+  <!-- پاپ آپ شماره مراکز دانشگاهی -->
+  <div id="campusModal" class="modal-overlay">
+    <div class="modal-glass-card campus-modal-card">
+      <div class="modal-sticky-header">
+        <button class="modal-close-btn" id="closeCampusModalBtn" title="بستن">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="modal-icon" style="color: #00f0ff; margin-bottom: 6px; font-size: 38px;">
+        <i class="fa-solid fa-building-columns"></i>
+      </div>
+      <p class="modal-title" style="margin-bottom: 18px; font-size: 17px;">شماره تماس مراکز دانشگاهی استان قزوین</p>
+
+      <div class="campus-cards-container">
+        <!-- مرکز قزوین -->
+        <div class="campus-box-card">
+          <div class="campus-box-name">مرکز قزوین</div>
+          <button class="city-accordion-btn" id="toggleQazvinBtn" style="margin-bottom: 4px;">
+            <span class="city-title-wrapper">
+              <i class="fa-solid fa-location-dot city-title-icon"></i>
+              <span>مشاهده بخش‌ها</span>
+            </span>
+            <i class="fa-solid fa-chevron-down chevron-icon"></i>
+          </button>
+
+          <div class="accordion-content-list" id="qazvinNumbersList">
+            <div class="qazvin-dept-row">
+              <span class="qazvin-dept-title">حراست</span>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-phone-flip"></i>
+                <span class="contact-digits">۰۲۸۳۳۳۷۱۶۹۳</span>
+              </div>
+              <div class="card-actions" style="max-width: 280px;">
+                <a href="tel:02833371693" class="action-btn btn-call"><i class="fa-solid fa-phone"></i> تماس</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('02833371693', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+            </div>
+
+            <div class="qazvin-dept-row">
+              <span class="qazvin-dept-title">آموزش (خط ۱)</span>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-phone-flip"></i>
+                <span class="contact-digits">۰۲۸۳۳۳۷۷۵۸۱</span>
+              </div>
+              <div class="card-actions" style="max-width: 280px;">
+                <a href="tel:02833377581" class="action-btn btn-call"><i class="fa-solid fa-phone"></i> تماس</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('02833377581', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+            </div>
+
+            <div class="qazvin-dept-row">
+              <span class="qazvin-dept-title">آموزش (خط ۲)</span>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-phone-flip"></i>
+                <span class="contact-digits">۰۲۸۳۳۳۷۶۰۱۰</span>
+              </div>
+              <div class="card-actions" style="max-width: 280px;">
+                <a href="tel:02833376010" class="action-btn btn-call"><i class="fa-solid fa-phone"></i> تماس</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('02833376010', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+            </div>
+
+            <div class="qazvin-dept-row">
+              <span class="qazvin-dept-title">امتحانات</span>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-phone-flip"></i>
+                <span class="contact-digits">۰۲۸۳۳۳۷۵۳۸۵</span>
+              </div>
+              <div class="card-actions" style="max-width: 280px;">
+                <a href="tel:02833375385" class="action-btn btn-call"><i class="fa-solid fa-phone"></i> تماس</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('02833375385', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+            </div>
+
+            <div class="qazvin-dept-row">
+              <span class="qazvin-dept-title">خدمات دانشجویی - وام</span>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-phone-flip"></i>
+                <span class="contact-digits">۰۲۸۳۳۳۷۳۱۰۱</span>
+              </div>
+              <div class="card-actions" style="max-width: 280px;">
+                <a href="tel:02833373101" class="action-btn btn-call"><i class="fa-solid fa-phone"></i> تماس</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('02833373843', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+            </div>
+
+            <div class="qazvin-dept-row">
+              <span class="qazvin-dept-title">امور شهریه</span>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-phone-flip"></i>
+                <span class="contact-digits">۰۲۸۳۳۳۷۳۱۰۲</span>
+              </div>
+              <div class="card-actions" style="max-width: 280px;">
+                <a href="tel:02833373102" class="action-btn btn-call"><i class="fa-solid fa-phone"></i> تماس</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('02833373102', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+            </div>
+
+            <div class="qazvin-dept-row">
+              <span class="qazvin-dept-title">فرهنگی و فوق برنامه</span>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-phone-flip"></i>
+                <span class="contact-digits">۰۲۸۳۳۳۷۱۶۷۸</span>
+              </div>
+              <div class="card-actions" style="max-width: 280px;">
+                <a href="tel:02833371678" class="action-btn btn-call"><i class="fa-solid fa-phone"></i> تماس</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('02833371678', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+            </div>
+
+            <div class="qazvin-dept-row">
+              <span class="qazvin-dept-title">تحصیلات تکمیلی</span>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-phone-flip"></i>
+                <span class="contact-digits">۰۲۸۳۳۳۷۸۹۳۹</span>
+              </div>
+              <div class="card-actions" style="max-width: 280px;">
+                <a href="tel:02833378939" class="action-btn btn-call"><i class="fa-solid fa-phone"></i> تماس</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('02833378939', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+            </div>
+
+            <div class="qazvin-dept-row">
+              <span class="qazvin-dept-title">فناوری و رایانه</span>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-phone-flip"></i>
+                <span class="contact-digits">۰۲۸۳۳۳۷۳۸۴۳</span>
+              </div>
+              <div class="card-actions" style="max-width: 280px;">
+                <a href="tel:02833378932" class="action-btn btn-call"><i class="fa-solid fa-phone"></i> تماس</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('02833373843', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+            </div>
+
+            <div class="qazvin-dept-row">
+              <span class="qazvin-dept-title">برنامه ریزی درسی (خط ۱)</span>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-phone-flip"></i>
+                <span class="contact-digits">۰۲۸۳۳۳۷۸۹۳۰</span>
+              </div>
+              <div class="card-actions" style="max-width: 280px;">
+                <a href="tel:02833378930" class="action-btn btn-call"><i class="fa-solid fa-phone"></i> تماس</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('02833378930', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+            </div>
+
+            <div class="qazvin-dept-row">
+              <span class="qazvin-dept-title">برنامه ریزی درسی (خط ۲)</span>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-phone-flip"></i>
+                <span class="contact-digits">۰۲۸۳۳۳۷۴۰۸۲</span>
+              </div>
+              <div class="card-actions" style="max-width: 280px;">
+                <a href="tel:02833374082" class="action-btn btn-call"><i class="fa-solid fa-phone"></i> تماس</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('02833374082', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+            </div>
+
+            <div class="qazvin-dept-row">
+              <span class="qazvin-dept-title">روابط عمومی</span>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-phone-flip"></i>
+                <span class="contact-digits">۰۲۸۳۳۳۷۱۶۷۸</span>
+              </div>
+              <div class="card-actions" style="max-width: 280px;">
+                <a href="tel:02833371678" class="action-btn btn-call"><i class="fa-solid fa-phone"></i> تماس</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('02833371678', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+            </div>
+
+            <div class="qazvin-dept-row">
+              <span class="qazvin-dept-title">انتظامات</span>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-phone-flip"></i>
+                <span class="contact-digits">۰۲۸۳۳۳۷۴۱۲۰</span>
+              </div>
+              <div class="card-actions" style="max-width: 280px;">
+                <a href="tel:02833374120" class="action-btn btn-call"><i class="fa-solid fa-phone"></i> تماس</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('02833374120', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+            </div>
+
+            <div class="qazvin-dept-row">
+              <span class="qazvin-dept-title">انتشارات</span>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-phone-flip"></i>
+                <span class="contact-digits">۰۲۸۳۳۳۷۸۹۳۲</span>
+              </div>
+              <div class="card-actions" style="max-width: 280px;">
+                <a href="tel:02833378932" class="action-btn btn-call"><i class="fa-solid fa-phone"></i> تماس</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('02833378932', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- مرکز بوئین زهرا -->
+        <div class="campus-box-card">
+          <div class="campus-box-name">مرکز بوئین زهرا</div>
+          <div class="contact-glass-pill" style="margin-bottom: 14px;">
+            <i class="fa-solid fa-phone-flip"></i>
+            <span class="contact-digits">۰۲۸۳۴۲۲۲۵۹۸</span>
+          </div>
+          <div class="card-actions" style="max-width: 320px;">
+            <a href="tel:02834222598" class="action-btn btn-call">
+              <i class="fa-solid fa-phone"></i> تماس
+            </a>
+            <button class="action-btn btn-copy" onclick="handleCopyAction('02834222598', this)">
+              <i class="fa-regular fa-copy"></i> <span>کپی کردن</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- مرکز الوند -->
+        <div class="campus-box-card">
+          <div class="campus-box-name">مرکز الوند</div>
+          <div class="contact-glass-pill" style="margin-bottom: 14px;">
+            <i class="fa-solid fa-phone-flip"></i>
+            <span class="contact-digits">۰۲۸۳۲۲۴۶۲۹۳</span>
+          </div>
+          <div class="card-actions" style="max-width: 320px;">
+            <a href="tel:02832246293" class="action-btn btn-call">
+              <i class="fa-solid fa-phone"></i> تماس
+            </a>
+            <button class="action-btn btn-copy" onclick="handleCopyAction('02832246293', this)">
+              <i class="fa-regular fa-copy"></i> <span>کپی کردن</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- مرکز تاکستان -->
+        <div class="campus-box-card">
+          <div class="campus-box-name">مرکز تاکستان</div>
+          <div class="contact-glass-pill" style="margin-bottom: 14px;">
+            <i class="fa-solid fa-phone-flip"></i>
+            <span class="contact-digits">۰۲۸۳۵۲۳۹۰۶۱</span>
+          </div>
+          <div class="card-actions" style="max-width: 320px;">
+            <a href="tel:02835239061" class="action-btn btn-call">
+              <i class="fa-solid fa-phone"></i> تماس
+            </a>
+            <button class="action-btn btn-copy" onclick="handleCopyAction('02835239061', this)">
+              <i class="fa-regular fa-copy"></i> <span>کپی کردن</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- پاپ آپ ارتباط با کارشناسان رشته -->
+  <div id="expertsModal" class="modal-overlay">
+    <div class="modal-glass-card campus-modal-card">
+      <div class="modal-sticky-header">
+        <button class="modal-close-btn" id="closeExpertsModalBtn" title="بستن">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="modal-icon" style="color: #ffd166; margin-bottom: 6px; font-size: 38px;">
+        <i class="fa-solid fa-user-tie"></i>
+      </div>
+      <p class="modal-title" style="margin-bottom: 14px; font-size: 18px;">ارتباط با کارشناسان رشته</p>
+
+      <div class="ivr-instruction-box">
+        <p class="ivr-text">
+          برای ارتباط با کارشناس رشته خود ابتدا با تلفن گویای دانشگاه به شماره زیر تماس حاصل نموده و سپس داخلی کارشناس رشته خود را شماره‌گیری فرمایید
+        </p>
+        <div class="contact-glass-pill">
+          <i class="fa-solid fa-phone-volume"></i>
+          <span class="contact-digits">۰۲۸۳۳۳۷۷۰۰۰</span>
+        </div>
+        <div class="card-actions" style="max-width: 300px;">
+          <a href="tel:02833377000" class="action-btn btn-call">
+            <i class="fa-solid fa-phone"></i> تماس
+          </a>
+          <button class="action-btn btn-copy" onclick="handleCopyAction('02833377000', this)">
+            <i class="fa-regular fa-copy"></i> <span>کپی کردن</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="campus-cards-container">
+        <!-- خانم ملکی -->
+        <div class="expert-box-card">
+          <div class="campus-box-name">خانم ملکی</div>
+          <div class="contact-glass-pill">
+            <span style="font-size: 13.5px; color: #ffd166; font-weight: 700;">داخلی:</span>
+            <span class="contact-digits">۲۲۴۵</span>
+          </div>
+          <div class="expert-majors-text">علوم تربیتی / طراحی لباس / مهندسی شهرسازی</div>
+        </div>
+
+        <!-- خانم کاظمی -->
+        <div class="expert-box-card">
+          <div class="campus-box-name">خانم کاظمی</div>
+          <div class="contact-glass-pill">
+            <span style="font-size: 13.5px; color: #ffd166; font-weight: 700;">داخلی:</span>
+            <span class="contact-digits">۲۲۴۹</span>
+          </div>
+          <div class="expert-majors-text">حسابداری / کشاورزی / زبان و ادبیات انگلیسی / مترجمی زبان انگلیسی</div>
+        </div>
+
+        <!-- خانم آقایاری -->
+        <div class="expert-box-card">
+          <div class="campus-box-name">خانم آقایاری</div>
+          <div class="contact-glass-pill">
+            <span style="font-size: 13.5px; color: #ffd166; font-weight: 700;">داخلی:</span>
+            <span class="contact-digits">۲۲۴۸</span>
+          </div>
+          <div class="expert-majors-text">شیمی / فیزیک / زیست شناسی / زمین شناسی / علوم کامپیوتر / مشاوره</div>
+        </div>
+
+        <!-- آقای اصغرزاده -->
+        <div class="expert-box-card">
+          <div class="campus-box-name">آقای اصغرزاده</div>
+          <div class="contact-glass-pill">
+            <span style="font-size: 13.5px; color: #ffd166; font-weight: 700;">داخلی:</span>
+            <span class="contact-digits">۲۲۳۸</span>
+          </div>
+          <div class="expert-majors-text">حقوق / الهیات / مهندسی کامپیوتر</div>
+        </div>
+
+        <!-- آقای برزو -->
+        <div class="expert-box-card">
+          <div class="campus-box-name">آقای برزو</div>
+          <div class="contact-glass-pill">
+            <span style="font-size: 13.5px; color: #ffd166; font-weight: 700;">داخلی:</span>
+            <span class="contact-digits">۲۳۴۲</span>
+          </div>
+          <div class="expert-majors-text">مدیریت ها / هتلداری / زبان و ادبیات فارسی / اقتصاد / گردشگری</div>
+        </div>
+
+        <!-- آقای صفوی -->
+        <div class="expert-box-card">
+          <div class="campus-box-name">آقای صفوی</div>
+          <div class="contact-glass-pill">
+            <span style="font-size: 13.5px; color: #ffd166; font-weight: 700;">داخلی:</span>
+            <span class="contact-digits">۲۲۶۱</span>
+          </div>
+          <div class="expert-majors-text">روانشناسی / جامعه شناسی / تاریخ / علوم سیاسی / مهندسی صنایع</div>
+        </div>
+
+        <!-- آقای صالحی -->
+        <div class="expert-box-card">
+          <div class="campus-box-name">آقای صالحی</div>
+          <div class="contact-glass-pill">
+            <span style="font-size: 13.5px; color: #ffd166; font-weight: 700;">داخلی:</span>
+            <span class="contact-digits">۲۲۶۰</span>
+          </div>
+          <div class="expert-majors-text">علوم ورزشی / ارتباط تصویری / صنایع دستی / مکانیک / پزشکی / پزشکی پلیمر / برق / نقاشی</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- پاپ آپ پشتیبانان مراکز دانشگاهی پیام نور استان قزوین -->
+  <div id="supportModal" class="modal-overlay">
+    <div class="modal-glass-card campus-modal-card">
+      <div class="modal-sticky-header">
+        <button class="modal-close-btn" id="closeSupportModalBtn" title="بستن">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="modal-icon" style="color: #06d6a0; margin-bottom: 6px; font-size: 38px;">
+        <i class="fa-solid fa-headset"></i>
+      </div>
+      
+      <div class="support-modal-title">
+        <span class="support-title-line1">پشتیبانان مراکز دانشگاهی</span>
+        <span class="support-title-line2">پیام نور استان قزوین</span>
+      </div>
+
+      <div class="campus-cards-container">
+        <!-- مرکز قزوین -->
+        <div class="support-city-card">
+          <button class="city-accordion-btn accordion-trigger" data-target="supportQazvinList">
+            <span class="city-title-wrapper">
+              <i class="fa-solid fa-location-dot city-title-icon"></i>
+              <span>مرکز قزوین</span>
+            </span>
+            <i class="fa-solid fa-chevron-down chevron-icon"></i>
+          </button>
+          <div class="accordion-content-list" id="supportQazvinList">
+            <!-- خانم نیکو -->
+            <div class="support-person-row">
+              <span class="support-person-name">خانم نیکو</span>
+              <span class="support-person-role">«برنامه ریزی»</span>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-comment-dots"></i>
+                <span class="contact-eitaa-id">@l_nikoo1356</span>
+              </div>
+              <div class="card-actions" style="max-width: 320px;">
+                <a href="https://eitaa.com/l_nikoo1356" target="_blank" class="action-btn btn-eitaa"><i class="fa-solid fa-paper-plane"></i> ارسال پیام در ایتا</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('@l_nikoo1356', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-phone-flip"></i>
+                <span class="contact-digits">۰۲۸۳۳۳۷۴۰۸۲</span>
+              </div>
+              <div class="card-actions" style="max-width: 320px;">
+                <a href="tel:02833374082" class="action-btn btn-call"><i class="fa-solid fa-phone"></i> تماس</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('02833374082', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+            </div>
+
+            <!-- آقای علیجانی -->
+            <div class="support-person-row">
+              <span class="support-person-name">آقای علیجانی</span>
+              <span class="support-person-role">«برنامه ریزی»</span>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-comment-dots"></i>
+                <span class="contact-eitaa-id">@Alijani_s</span>
+              </div>
+              <div class="card-actions" style="max-width: 320px;">
+                <a href="https://eitaa.com/Alijani_s" target="_blank" class="action-btn btn-eitaa"><i class="fa-solid fa-paper-plane"></i> ارسال پیام در ایتا</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('@Alijani_s', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-phone-flip"></i>
+                <span class="contact-digits">۰۹۱۲۷۸۲۶۶۹۴</span>
+              </div>
+              <div class="card-actions" style="max-width: 320px;">
+                <a href="tel:09127826694" class="action-btn btn-call"><i class="fa-solid fa-phone"></i> تماس</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('09127826694', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+            </div>
+
+            <!-- خانم آقایاری -->
+            <div class="support-person-row">
+              <span class="support-person-name">خانم آقایاری</span>
+              <span class="support-person-role">«آموزش»</span>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-comment-dots"></i>
+                <span class="contact-eitaa-id">@Aghayarimasal</span>
+              </div>
+              <div class="card-actions" style="max-width: 320px;">
+                <a href="https://eitaa.com/Aghayarimasal" target="_blank" class="action-btn btn-eitaa"><i class="fa-solid fa-paper-plane"></i> ارسال پیام در ایتا</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('@Aghayarimasal', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+            </div>
+
+            <!-- آقای دلیری -->
+            <div class="support-person-row">
+              <span class="support-person-name">آقای دلیری</span>
+              <span class="support-person-role">«آموزش»</span>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-comment-dots"></i>
+                <span class="contact-eitaa-id">@RDaliri49</span>
+              </div>
+              <div class="card-actions" style="max-width: 320px;">
+                <a href="https://eitaa.com/RDaliri49" target="_blank" class="action-btn btn-eitaa"><i class="fa-solid fa-paper-plane"></i> ارسال پیام در ایتا</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('@RDaliri49', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+            </div>
+
+            <!-- آقای یزدی پور -->
+            <div class="support-person-row">
+              <span class="support-person-name">آقای یزدی پور</span>
+              <span class="support-person-role">«فناوری»</span>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-comment-dots"></i>
+                <span class="contact-eitaa-id">@yazdipourQPNU</span>
+              </div>
+              <div class="card-actions" style="max-width: 320px;">
+                <a href="https://eitaa.com/yazdipourQPNU" target="_blank" class="action-btn btn-eitaa"><i class="fa-solid fa-paper-plane"></i> ارسال پیام در ایتا</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('@yazdipourQPNU', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-phone-flip"></i>
+                <span class="contact-digits">۰۹۱۲۱۸۱۷۲۴۱</span>
+              </div>
+              <div class="card-actions" style="max-width: 320px;">
+                <a href="tel:09121817241" class="action-btn btn-call"><i class="fa-solid fa-phone"></i> تماس</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('09121817241', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-phone-flip"></i>
+                <span class="contact-digits">۰۲۸۳۳۳۷۳۸۴۳</span>
+              </div>
+              <div class="card-actions" style="max-width: 320px;">
+                <a href="tel:02833373843" class="action-btn btn-call"><i class="fa-solid fa-phone"></i> تماس</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('02833373843', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+            </div>
+
+            <!-- آمنه حاجی طاهریها -->
+            <div class="support-person-row">
+              <span class="support-person-name">آمنه حاجی طاهریها</span>
+              <span class="support-person-role">«امتحانات»</span>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-comment-dots"></i>
+                <span class="contact-eitaa-id">@Hajitaheriha</span>
+              </div>
+              <div class="card-actions" style="max-width: 320px;">
+                <a href="https://eitaa.com/Hajitaheriha" target="_blank" class="action-btn btn-eitaa"><i class="fa-solid fa-paper-plane"></i> ارسال پیام در ایتا</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('@Hajitaheriha', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-phone-flip"></i>
+                <span class="contact-digits">۰۹۹۴۵۸۷۶۱۹۴</span>
+              </div>
+              <div class="card-actions" style="max-width: 320px;">
+                <a href="tel:09945876194" class="action-btn btn-call"><i class="fa-solid fa-phone"></i> تماس</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('09945876194', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-phone-flip"></i>
+                <span class="contact-digits">۰۲۸۳۳۳۷۵۳۸۵</span>
+              </div>
+              <div class="card-actions" style="max-width: 320px;">
+                <a href="tel:02833375385" class="action-btn btn-call"><i class="fa-solid fa-phone"></i> تماس</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('02833375385', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+            </div>
+
+            <!-- سکینه حسن پور -->
+            <div class="support-person-row">
+              <span class="support-person-name">سکینه حسن پور</span>
+              <span class="support-person-role">«وام دانشجویی»</span>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-comment-dots"></i>
+                <span class="contact-eitaa-id">@Hassanpoor55</span>
+              </div>
+              <div class="card-actions" style="max-width: 320px;">
+                <a href="https://eitaa.com/Hassanpoor55" target="_blank" class="action-btn btn-eitaa"><i class="fa-solid fa-paper-plane"></i> ارسال پیام در ایتا</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('@Hassanpoor55', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+            </div>
+
+            <!-- مجید صفوی -->
+            <div class="support-person-row">
+              <span class="support-person-name">مجید صفوی</span>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-comment-dots"></i>
+                <span class="contact-eitaa-id">@Msafavi48</span>
+              </div>
+              <div class="card-actions" style="max-width: 320px;">
+                <a href="https://eitaa.com/Msafavi48" target="_blank" class="action-btn btn-eitaa"><i class="fa-solid fa-paper-plane"></i> ارسال پیام در ایتا</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('@Msafavi48', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+            </div>
+
+            <!-- آقای اصغرزاده -->
+            <div class="support-person-row">
+              <span class="support-person-name">آقای اصغرزاده</span>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-phone-flip"></i>
+                <span class="contact-digits">۰۹۱۲۳۸۱۷۵۴۹</span>
+              </div>
+              <div class="card-actions" style="max-width: 320px;">
+                <a href="tel:09123817549" class="action-btn btn-call"><i class="fa-solid fa-phone"></i> تماس</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('09123817549', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+                <a href="sms:09123817549" class="action-btn btn-sms"><i class="fa-solid fa-comment-sms"></i> پیامک</a>
+              </div>
+            </div>
+
+            <!-- علی برزو -->
+            <div class="support-person-row">
+              <span class="support-person-name">علی برزو</span>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-comment-dots"></i>
+                <span class="contact-eitaa-id">@Aliborzoo</span>
+              </div>
+              <div class="card-actions" style="max-width: 320px;">
+                <a href="https://eitaa.com/Aliborzoo" target="_blank" class="action-btn btn-eitaa"><i class="fa-solid fa-paper-plane"></i> ارسال پیام در ایتا</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('@Aliborzoo', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+            </div>
+
+            <!-- آقای احمدی -->
+            <div class="support-person-row">
+              <span class="support-person-name">آقای احمدی</span>
+              <span class="support-person-role">«نظام وظیفه و اتباع خارجی»</span>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-comment-dots"></i>
+                <span class="contact-eitaa-id">@Ahmadi33000</span>
+              </div>
+              <div class="card-actions" style="max-width: 320px;">
+                <a href="https://eitaa.com/Ahmadi33000" target="_blank" class="action-btn btn-eitaa"><i class="fa-solid fa-paper-plane"></i> ارسال پیام در ایتا</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('@Ahmadi33000', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+            </div>
+
+            <!-- سارا پیری -->
+            <div class="support-person-row">
+              <span class="support-person-name">سارا پیری</span>
+              <span class="support-person-role">«کاربر ارشد»</span>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-comment-dots"></i>
+                <span class="contact-eitaa-id">@zxcvbnm1122</span>
+              </div>
+              <div class="card-actions" style="max-width: 320px;">
+                <a href="https://eitaa.com/zxcvbnm1122" target="_blank" class="action-btn btn-eitaa"><i class="fa-solid fa-paper-plane"></i> ارسال پیام در ایتا</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('@zxcvbnm1122', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+            </div>
+
+            <!-- مهدی رحمانی -->
+            <div class="support-person-row">
+              <span class="support-person-name">مهدی رحمانی</span>
+              <span class="support-person-role">«دانش آموختگان»</span>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-comment-dots"></i>
+                <span class="contact-eitaa-id">@rahmani5172</span>
+              </div>
+              <div class="card-actions" style="max-width: 320px;">
+                <a href="https://eitaa.com/rahmani5172" target="_blank" class="action-btn btn-eitaa"><i class="fa-solid fa-paper-plane"></i> ارسال پیام در ایتا</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('@rahmani5172', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+            </div>
+
+            <!-- خانم نجاتی -->
+            <div class="support-person-row">
+              <span class="support-person-name">خانم نجاتی</span>
+              <span class="support-person-role">«تحصیلات تکمیلی»</span>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-comment-dots"></i>
+                <span class="contact-eitaa-id">@nejatipnu</span>
+              </div>
+              <div class="card-actions" style="max-width: 320px;">
+                <a href="https://eitaa.com/nejatipnu" target="_blank" class="action-btn btn-eitaa"><i class="fa-solid fa-paper-plane"></i> ارسال پیام در ایتا</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('@nejatipnu', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+            </div>
+
+            <!-- پروانه حسن زاده -->
+            <div class="support-person-row">
+              <span class="support-person-name">پروانه حسن زاده</span>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-comment-dots"></i>
+                <span class="contact-eitaa-id">@P_hasanzadeh</span>
+              </div>
+              <div class="card-actions" style="max-width: 320px;">
+                <a href="https://eitaa.com/P_hasanzadeh" target="_blank" class="action-btn btn-eitaa"><i class="fa-solid fa-paper-plane"></i> ارسال پیام در ایتا</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('@P_hasanzadeh', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+            </div>
+
+            <!-- مهزاد سیدحمزه -->
+            <div class="support-person-row">
+              <span class="support-person-name">مهزاد سیدحمزه</span>
+              <span class="support-person-role">«آموزش های آزاد»</span>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-comment-dots"></i>
+                <span class="contact-eitaa-id">@Qpnuazadadmin</span>
+              </div>
+              <div class="card-actions" style="max-width: 320px;">
+                <a href="https://eitaa.com/Qpnuazadadmin" target="_blank" class="action-btn btn-eitaa"><i class="fa-solid fa-paper-plane"></i> ارسال پیام در ایتا</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('@Qpnuazadadmin', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- مرکز الوند -->
+        <div class="support-city-card">
+          <button class="city-accordion-btn accordion-trigger" data-target="supportAlvandList">
+            <span class="city-title-wrapper">
+              <i class="fa-solid fa-location-dot city-title-icon"></i>
+              <span>مرکز الوند</span>
+            </span>
+            <i class="fa-solid fa-chevron-down chevron-icon"></i>
+          </button>
+          <div class="accordion-content-list" id="supportAlvandList">
+            <!-- خانم کوچکی -->
+            <div class="support-person-row">
+              <span class="support-person-name">خانم کوچکی</span>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-comment-dots"></i>
+                <span class="contact-eitaa-id">@alvand_pnu</span>
+              </div>
+              <div class="card-actions" style="max-width: 320px;">
+                <a href="https://eitaa.com/alvand_pnu" target="_blank" class="action-btn btn-eitaa"><i class="fa-solid fa-paper-plane"></i> ارسال پیام در ایتا</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('@alvand_pnu', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-phone-flip"></i>
+                <span class="contact-digits">۰۹۱۹۱۸۵۱۶۷۰</span>
+              </div>
+              <div class="card-actions" style="max-width: 320px;">
+                <a href="tel:09191851670" class="action-btn btn-call"><i class="fa-solid fa-phone"></i> تماس</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('09191851670', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+                <a href="sms:09191851670" class="action-btn btn-sms"><i class="fa-solid fa-comment-sms"></i> پیامک</a>
+              </div>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-phone-flip"></i>
+                <span class="contact-digits">۰۲۸۳۲۲۴۶۲۹۳</span>
+              </div>
+              <div class="card-actions" style="max-width: 320px;">
+                <a href="tel:02832246293" class="action-btn btn-call"><i class="fa-solid fa-phone"></i> تماس</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('02832246293', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+            </div>
+
+            <!-- آقای عشقی -->
+            <div class="support-person-row">
+              <span class="support-person-name">آقای عشقی</span>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-comment-dots"></i>
+                <span class="contact-eitaa-id">@jamshideshghi</span>
+              </div>
+              <div class="card-actions" style="max-width: 320px;">
+                <a href="https://eitaa.com/jamshideshghi" target="_blank" class="action-btn btn-eitaa"><i class="fa-solid fa-paper-plane"></i> ارسال پیام در ایتا</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('@jamshideshghi', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- مرکز تاکستان -->
+        <div class="support-city-card">
+          <button class="city-accordion-btn accordion-trigger" data-target="supportTakestanList">
+            <span class="city-title-wrapper">
+              <i class="fa-solid fa-location-dot city-title-icon"></i>
+              <span>مرکز تاکستان</span>
+            </span>
+            <i class="fa-solid fa-chevron-down chevron-icon"></i>
+          </button>
+          <div class="accordion-content-list" id="supportTakestanList">
+            <!-- خانم بهمنی -->
+            <div class="support-person-row">
+              <span class="support-person-name">خانم بهمنی</span>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-comment-dots"></i>
+                <span class="contact-eitaa-id">@akramBahmani</span>
+              </div>
+              <div class="card-actions" style="max-width: 320px;">
+                <a href="https://eitaa.com/akramBahmani" target="_blank" class="action-btn btn-eitaa"><i class="fa-solid fa-paper-plane"></i> ارسال پیام در ایتا</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('@akramBahmani', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-phone-flip"></i>
+                <span class="contact-digits">۰۹۳۵۰۷۱۴۱۱۴</span>
+              </div>
+              <div class="card-actions" style="max-width: 320px;">
+                <a href="tel:09350714114" class="action-btn btn-call"><i class="fa-solid fa-phone"></i> تماس</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('09350714114', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+                <a href="sms:09350714114" class="action-btn btn-sms"><i class="fa-solid fa-comment-sms"></i> پیامک</a>
+              </div>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-phone-flip"></i>
+                <span class="contact-digits">۰۲۸۳۵۲۳۹۰۶۱</span>
+              </div>
+              <div class="card-actions" style="max-width: 320px;">
+                <a href="tel:02833379061" class="action-btn btn-call"><i class="fa-solid fa-phone"></i> تماس</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('02835239061', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+            </div>
+
+            <!-- خانم رحمانی -->
+            <div class="support-person-row">
+              <span class="support-person-name">خانم رحمانی</span>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-phone-flip"></i>
+                <span class="contact-digits">۰۹۱۹۵۹۹۶۴۱۹</span>
+              </div>
+              <div class="card-actions" style="max-width: 320px;">
+                <a href="tel:09195996419" class="action-btn btn-call"><i class="fa-solid fa-phone"></i> تماس</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('09195996419', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+                <a href="sms:09195996419" class="action-btn btn-sms"><i class="fa-solid fa-comment-sms"></i> پیامک</a>
+              </div>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-phone-flip"></i>
+                <span class="contact-digits">۰۲۸۳۵۲۳۹۰۶۱</span>
+              </div>
+              <div class="card-actions" style="max-width: 320px;">
+                <a href="tel:02833379061" class="action-btn btn-call"><i class="fa-solid fa-phone"></i> تماس</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('02835239061', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- مرکز آوج -->
+        <div class="support-city-card">
+          <button class="city-accordion-btn accordion-trigger" data-target="supportAvajList">
+            <span class="city-title-wrapper">
+              <i class="fa-solid fa-location-dot city-title-icon"></i>
+              <span>مرکز آوج</span>
+            </span>
+            <i class="fa-solid fa-chevron-down chevron-icon"></i>
+          </button>
+          <div class="accordion-content-list" id="supportAvajList">
+            <!-- خانم قدیم سرباز -->
+            <div class="support-person-row">
+              <span class="support-person-name">خانم قدیم سرباز</span>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-phone-flip"></i>
+                <span class="contact-digits">۰۹۱۹۲۸۸۶۰۳۵</span>
+              </div>
+              <div class="card-actions" style="max-width: 320px;">
+                <a href="tel:09192886035" class="action-btn btn-call"><i class="fa-solid fa-phone"></i> تماس</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('09192886035', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+                <a href="sms:09192886035" class="action-btn btn-sms"><i class="fa-solid fa-comment-sms"></i> پیامک</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- مرکز بویین زهرا -->
+        <div class="support-city-card">
+          <button class="city-accordion-btn accordion-trigger" data-target="supportBoeinList">
+            <span class="city-title-wrapper">
+              <i class="fa-solid fa-location-dot city-title-icon"></i>
+              <span>مرکز بویین زهرا</span>
+            </span>
+            <i class="fa-solid fa-chevron-down chevron-icon"></i>
+          </button>
+          <div class="accordion-content-list" id="supportBoeinList">
+            <!-- آقای افشار -->
+            <div class="support-person-row">
+              <span class="support-person-name">آقای افشار</span>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-phone-flip"></i>
+                <span class="contact-digits">۰۹۲۲۲۸۲۳۹۷۸</span>
+              </div>
+              <div class="card-actions" style="max-width: 320px;">
+                <a href="tel:09222823978" class="action-btn btn-call"><i class="fa-solid fa-phone"></i> تماس</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('09222823978', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+                <a href="sms:09222823978" class="action-btn btn-sms"><i class="fa-solid fa-comment-sms"></i> پیامک</a>
+              </div>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-phone-flip"></i>
+                <span class="contact-digits">۰۲۸۳۴۲۲۲۵۹۸</span>
+              </div>
+              <div class="card-actions" style="max-width: 320px;">
+                <a href="tel:02834222598" class="action-btn btn-call"><i class="fa-solid fa-phone"></i> تماس</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('02834222598', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+            </div>
+
+            <!-- آقای آقابابایی -->
+            <div class="support-person-row">
+              <span class="support-person-name">آقای آقابابایی</span>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-phone-flip"></i>
+                <span class="contact-digits">۰۹۱۲۳۸۲۰۱۲۵</span>
+              </div>
+              <div class="card-actions" style="max-width: 320px;">
+                <a href="tel:09123820125" class="action-btn btn-call"><i class="fa-solid fa-phone"></i> تماس</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('09123820125', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+                <a href="sms:09123820125" class="action-btn btn-sms"><i class="fa-solid fa-comment-sms"></i> پیامک</a>
+              </div>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-phone-flip"></i>
+                <span class="contact-digits">۰۲۸۳۴۲۲۲۵۹۸</span>
+              </div>
+              <div class="card-actions" style="max-width: 320px;">
+                <a href="tel:02834222598" class="action-btn btn-call"><i class="fa-solid fa-phone"></i> تماس</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('02834222598', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+            </div>
+
+            <!-- آقای فصیح رامندی -->
+            <div class="support-person-row">
+              <span class="support-person-name">آقای فصیح رامندی</span>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-phone-flip"></i>
+                <span class="contact-digits">۰۹۱۹۱۹۰۵۵۷۲</span>
+              </div>
+              <div class="card-actions" style="max-width: 320px;">
+                <a href="tel:09191905572" class="action-btn btn-call"><i class="fa-solid fa-phone"></i> تماس</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('09191905572', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+                <a href="sms:09191905572" class="action-btn btn-sms"><i class="fa-solid fa-comment-sms"></i> پیامک</a>
+              </div>
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-phone-flip"></i>
+                <span class="contact-digits">۰۲۸۳۴۲۲۲۵۹۸</span>
+              </div>
+              <div class="card-actions" style="max-width: 320px;">
+                <a href="tel:02834222598" class="action-btn btn-call"><i class="fa-solid fa-phone"></i> تماس</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('02834222598', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const rawData = [
+      "آذر شمشیری فرد: https://eitaa.com/shamshiri_fard", "آرزو عظیم زاده: 09122828570", "آرمین رجب زاده: 09129051455",
+      "آقای اصغر زاده: 09123817549", "آقای حسین خانی: 09191231950", "آقای رخش ماه: https://eitaa.com/MRRXSMH",
+      "آقای علیجانی: 09127826694", "آمنه حاجی طاهری ها: 09945876194", "ابراهیم واشقانی فراهانی: 09194528952",
+      "ابوالفضل علیایی: 09124493442", "اسماعیل زال بیگی: 09196987332", "اشکان الماسی: 09121860648",
+      "اصغر فرجی: https://eitaa.com/asghar_faraji1365", "افسانه ربانی: 09396079666", "اکبر عنبری: 09122811148",
+      "اکرم بهمنی: 09350714114", "اکرم کوچکی: 09191851670", "الهام لامعی رامندی: 09127935419",
+      "الهه همایی: 09122813898", "امیر مسعود صفری: 09933673610", "انسیه زارعان: 09127815321",
+      "انسیه عنایتی: 09126817014", "بهرام سلیمی: 09126412538", "بهرام چگینی: 09026755373",
+      "بهاره جوادی: 09107477388", "بیتا ابراهیم زاده: 09377946230", "بیتا خلیلی: 09937797783",
+      "بیتا صادقیان: 09127866229", "پریسا پرهیزگاری: 09129490596", "پریسا رهبری: 09127854696",
+      "پرویز شفیعی: 09109952912", "تهمینه چهره آرا: 09122111753", "توحید شیرعلیپور: 09120264263",
+      "ثقفی: 09188730853", "ثریا شهسواری: 09125047807", "جلال حسینی: 09192845204",
+      "جمشید عشقی: https://eitaa.com/jamshideshghi", "جواد چیتگر: 09125813976", "حامد محمدی: 09127804525",
+      "حامد نوروزلو: 09198484770", "حسن زمانی: 09125821399", "حسن محمد رضایی: 09127808769",
+      "حسن نجاتی آتانی: 09109592509", "حسین بابایی: 09190474716", "حسین رسولی: 09361712400",
+      "حسین زارع شعار: 09120165932", "حسین ساسانیان: 09121819906", "حسین نراقی: 09196424600",
+      "حسین یزدی پور: 09121817241", "حمید کوزه گرها: 09123814368", "حمید ولدی: 09193827210",
+      "حمیدرضا انصاری: 09390445124", "حمیرا فخاری: 09124810457", "حیدر قیاسی: 09127869073",
+      "حمید عبداللهی فرد: 09199732607", "وحید عزیز خانی: 09127457241",
+      "مهزاد سیدحمزه: https://eitaa.com/Qpnuazadadmin", "پوریا دست افکن: https://eitaa.com/Poriyadastafkan",
+      "خانم آقایاری: https://eitaa.com/Aghayarimasal", "سکینه حسن پور: https://eitaa.com/Hassanpoor55",
+      "پروانه حسن زاده: https://eitaa.com/P_hasanzadeh",
+      "خانم قدیم سرباز: 09192886035", "خانم ملکی: 09127820147", "خانم نجاتی: https://eitaa.com/nejatipnu",
+      "راحله طالبی: https://eitaa.com/Raheletalebi", "راضیه دان اصفهانی: https://eitaa.com/Rdanesfahani",
+      "رامتین چیت سازان: 09127893087", "رسول دلیری: https://eitaa.com/rdaliri49", "رسول طاهر خانی: 09125813615",
+      "رضا رسولی: 09123819026", "روح الله احمدی: https://eitaa.com/Ahmadi33000", "رودابه شاه حسینی: 09333462461",
+      "روزبه عزیزمحمدی: 09123486995", "رقیه تقی پور: 09122820874", "زکیه صادقلو: 09128481220",
+      "زهرا افلاطونی: 09127874514", "زهرا تاج احمدی: 09192812970", "زهرا سادات حسینی پور: 09030720133",
+      "زهرا علمشاهی: 09124820957", "زهرا علیزاده: 09339045970", "زهرا فیض آبادی: 09126018950",
+      "زهرا نوروزی آهندانی: 09192815186", "زیبا باقری: 09198782029", "زینب کارازما: 09352872996",
+      "سارا درزی رامندی: 09128829589", "سارا دودانگه: 09126794751", "سارا پیری: 09192780626",
+      "ساناز بابک: 09127862006", "ساناز بیگم حسینی: 09128819273", "سجاد حضرتی: https://eitaa.com/SajadHazrati",
+      "سجاد زارع: 09191814491", "سجاد مجابی: 09019533989", "سحر بهمنی: 09121321105",
+      "سحر طاهرخانی: 09198783147", "سعدی صفاری: 09127493533", "سعید شفیعی: 09191862960",
+      "سعید طاهرخانی: 09352824752", "سعید محمدی: 09122812776", "سعید واحدی: 09126136312",
+      "سکینه رضایی: 09191853869", "سمیرا طاهرخانی: 09127834944", "سمیرا موسوی: https://eitaa.com/sam_1364_63",
+      "سمیه خلج آزاد: 09190249044", "سمیه قنبری: 09199601674", "سمیه نورایی: 09056871554",
+      "سروین محمدی اقدم: https://eitaa.com/sm1361312",
+      "سید حسن رضایی: https://eitaa.com/rezaeiQPNU", "سیما رحمنی: 09383826159",
+      "سیما موسوی نژاد شوشتری: 09127873640", "شهناز کلجه ولدی: 09127868565", "شیما رضایی: 09123815632",
+      "عادل قاسمی مدانی: 09125816095", "عاطفه عزیزی سرملی: 09903357340", "عباس فصیح رامندی: 09191905572",
+      "عباس محمدی: 09381447423", "علی افشار: 09222823978", "علی الهیاری: 09036471440",
+      "علی باباخانی: 09121397202", "علی بختیاری: 09108050089", "علی برزو: https://eitaa.com/Aliborzoo",
+      "علی بیرانوند: 09124201803", "علی حمیدی نیا: 09929309438, 09127891120", "علی رضاقلی فامیان: 09374953366",
+      "علی سلطانی: 09350714114", "علی اصغر کرمی: 09127875030", "علیرضا درزی رامندی: 09125849417",
+      "علیرضا سلیمی: 09127873247", "علیرضا شادارام: 09122574323", "علیرضا صالحی: 09125817232",
+      "علیرضا میدانچی: 09308112151", "عنایت اصغری: 09124824940", "عیسی امینی: 09366424676",
+      "غلامعلی محمدی کجیدی: 09191889921", "فائزه رحمانی: 09195996419", "فاطمه باقری: 09127898526",
+      "فاطمه حکاک قزوینی: 09123826519", "فاطمه سفیدی: 09125828198", "فاطمه شیوخی زاده: 09192876165",
+      "فاطمه صالحی: 09127828607", "فاطمه علیجانی: 09126824809", "فاطمه فرحانی: 09910734898",
+      "فاطمه فرهانی: 09058365465", "فاطمه قمری: 09125431651", "فاطمه مهرعلیان: https://eitaa.com/Famehr316",
+      "فاطمه یوسفی راد: 09125622875", "فرهاد طهماسبخانی: 09127393107", "فرزانه بابایی: https://eitaa.com/farzanba",
+      "فرشاد فصاحت: 09021822317", "فرشید سرفراز: 09123708630", "فریبا بهرامی ایوانکی: 09128805635",
+      "فریبرز محرمخانی: 09190451224", "فریدون جعفری: 09126811724", "فریدون شعبانی: 09127872434",
+      "فهمیه مومنی فر: 09124965779", "فهیمه رحمانی: 09128827016", "لیلا سلطانی: 09163646850",
+      "لیلا مهدی بیگی: 09128825494", "لیلا نیکو: https://eitaa.com/l_nikoo1356", "مجتبی انصاریان: 09124796670",
+      "محسن حاجی سید جوادی: 09122812144", "محسن حیدری: 09121818868", "محمد آقابابائی: 09123820125",
+      "محمد بامدادی: 09100928340", "محمد جعفر حیدری: 09125002873", "محمد خزایی: 09359345958",
+      "محمد رحمنی: 09127886615", "محمد ربیعی: 09106176757", "محمد علی کریمی: 09196436176",
+      "محمد علم بیگی: 09122430950", "محمد قائم جهان: 09337812418", "محمد قنبری: 09122818510",
+      "محمد مهدی اله وردیها: 09191811876", "محمد ناصر ادیب مهر: 09127826971", "محمدرضا شقاقی پور: 09127923803",
+      "محمدصادق ابراهیمیان: 09215570492", "محمدمسعود انبارلوئی: 09393211517", "مرتضی رحمنی: 09191940447",
+      "مرضیه آقایی: 09193877003", "مرضیه جانباز: 09127834412", "مریم جمالی: 09127886683",
+      "مریم سلیمانی: 09903443707", "مریم قصاب سه دهی: 09127832851", "مسعود پرور: 09373375677",
+      "مسعود طاهرخانی: 09123829176", "مصطفی حامدی فر: 09122816452", "معصومه سیاه علی: 09127826780",
+      "ملیحه مردانی: https://eitaa.com/Mardani_art2", "منصور حمیدی: 09121824891", "مهدی الوندی: 09216424680",
+      "مهدی الهیاری: 09102088740", "مهدی پژوهان: 09124547153", "مهدی تیموری: 09191935815",
+      "مهدی خدمتی: 09125818550", "مهدی رحمانی: https://eitaa.com/rahmani5172", "مهدی سلطانی رنانی: https://eitaa.com/soltani141",
+      "مهدی شکوری: 09362212038", "مهدی صداقت: 09127015548", "مهدی عامری: 09123320130",
+      "مهدی قدرتی میرکوهی: 09381740611", "مهدی میهن دوست: 09122813661", "مهشید ایزدیار: 09910794066",
+      "مهناز فاطمی عقدا: 09122689346", "مهناز کلهر: 09901827968", "میثم اکبرزاده: 09121826925",
+      "میلاد پارسیا: 09121812014", "میلاد ملکی: https://eitaa.com/malekimilad", "مینا پارسیا: 09125819842",
+      "مژگان حیاتی: 09126652039", "نازی قنبری: 09190830439", "ناهید طاهرخانی: https://eitaa.com/nahid_taherkha",
+      "نجمه یارکه سلخوری: 09127863023", "نرجس خاتون خاکساران: https://eitaa.com/Khak40", "نسرین رحمانی: 09127886231",
+      "ندا فلاح: 09127848754", "ندا نویسنده: 09207819790", "نگین نادری: 09163039473",
+      "وجیهه تاجر: 09127800773", "ولی محمد زمانی: 09124819436", "ولی محمد زمانی ۲: 09192812144", "ونوس عبدی: 09304984668",
+      "هادی کاظمی نژاد: 09126525085", "هادی یوسفی رامندی: 09122823320", "هاشم آقاجانی الیزه: https://eitaa.com/A138413844",
+      "هایده میراشه: 09199791780", "هومن حیدری: 09027626945",
+      "سمیه بهرامی: 09127860703", "مونا ترابی: 09124817029", "سعید حاجی: 09125819713",
+      "سید حسن حسینی: 09127812503", "زهرا شمس الهی: 09125824729", "فاطمه صادق پور: 09122856952",
+      "بهمن طاهرخانی: 09123824191", "رضا طاهر خانی (کشاورزی): 09122824739", "معصومه عربی خواه: 09394925476",
+      "حمیده علیجانی: 09122816840", "فاطمه عمرانی: 09181605608", "رضا عموئی: 09198273357",
+      "محمد رضا فرجی: 09358482649", "مرتضی فرهادی: 09213834460", "مجتبی کاشانی: 09210203573",
+      "اسماعیل لشکری: 09355229674", "سید رضا مهرنیا: 09122574607", "تقی نبئی: 09123813500",
+      "حمیده نجفی زادگان: 09192863160", "اعظم ایزد منش: 09119581003", "امین راجی: 09123996494",
+      "زهرا سمیاری: 09196069566", "حسین عاشوری: 09183164125", "فرانک عبدالهی: 09387516945",
+      "مجتبی قربانی آسیابر: 09358313731", "رسول رسولی: 09141664761",
+      "مریم چرخچیان: 09123814931", "سید مهدی حسینی: 09126878697", "معصومه طارمی: 09127805722",
+      "زهرا عسگری: 09193860903", "احسان محمد حسینی: 09197783194", "عباس میرزائی: 09127258225",
+      "آقای مستشاری محصص: 09121822691", "سید مصطفی افتخاری: 09126134420", "مریم طاهرخانی: 09122824964",
+      "آقای محمدبیگی: 09127886089", "حمیده سبحانی فرد: 09127830180", "مجید صفوی: 09127876249",
+      "عارفه کرمی پور: 09122819802", "حسن ولیزاده: 09171606928", "فاطمه هدایتی: 09127826849",
+      "الهام کاکاوند: 09127805523", "مریم رحمانی: 09127845767",
+      "مهرانوش غریبی: 09388228921", "مرضیه ربیعی: 09127866714", "مهران خاکی: 09141592811",
+      "آقای نوربخش: 09121467807", "آقای اعلمی: 09125813403", "محمد سعید محمدی: 09122810259",
+      "آقای میزانی: 09125823963",
+      "شهروز سیاهکالی مرادی: 09193894464",
+      "هومن راد: 09100463556",
+      "محمد اکبرزاده: https://eitaa.com/AkbarzadehNahadPNQ",
+      "ستاره رجبی: https://eitaa.com/R_Star_405",
+      "مرضیه دماوندی: 09363141531",
+      "سید مهدی شهیدی: https://eitaa.com/Shahidi131",
+      "فاطمه مددی: https://www.instagram.com/fateme_madadi.therapist?xtok=MXZ5dXF2aTE2cGZzMg=="
+    ];
+
+    function toPersianDigits(num) {
+      if (num === null || num === undefined) return '';
+      const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+      return num.toString().replace(/\d/g, x => persianDigits[x]);
+    }
+
+    function normalizePersianText(str) {
+      if (!str) return '';
+      return str
+        .toLowerCase()
+        .replace(/[يىئ]/g, 'ی')
+        .replace(/ك/g, 'ک')
+        .replace(/[آأإء]/g, 'ا')
+        .replace(/ة/g, 'ه')
+        .replace(/[\u200c\u200b\u200e\u200f]/g, '')
+        .replace(/[\u064B-\u0652]/g, '')
+        .replace(/[۰٠]/g, '0').replace(/[۱١]/g, '1').replace(/[۲٢]/g, '2')
+        .replace(/[۳٣]/g, '3').replace(/[۴٤]/g, '4').replace(/[۵٥]/g, '5')
+        .replace(/[۶٦]/g, '6').replace(/[۷٧]/g, '7').replace(/[۸٨]/g, '8')
+        .replace(/[۹٩]/g, '9')
+        .replace(/\s+/g, '')
+        .trim();
+    }
+
+    const professors = rawData.map(item => {
+      const parts = item.split(': ');
+      const rawContact = parts.slice(1).join(': ').trim();
+      const isInstagram = rawContact.includes('instagram.com');
+      const isEitaa = !isInstagram && rawContact.startsWith('http');
+      
+      let displayId = rawContact;
+      if (isInstagram) {
+        try {
+          const cleanPath = rawContact.split('?')[0].split('/').filter(Boolean).pop();
+          displayId = '@' + cleanPath;
+        } catch(e) {
+          displayId = rawContact;
+        }
+      } else if (isEitaa) {
+        displayId = '@' + rawContact.split('/').filter(Boolean).pop();
+      }
+
+      const phoneList = (!isEitaa && !isInstagram && rawContact.includes(',')) 
+        ? rawContact.split(',').map(s => s.trim()).filter(Boolean) 
+        : [];
+
+      return {
+        name: parts[0].trim(),
+        contact: rawContact,
+        displayId: displayId,
+        isEitaa: isEitaa,
+        isInstagram: isInstagram,
+        phoneList: phoneList,
+        normalizedName: normalizePersianText(parts[0]),
+        normalizedContact: normalizePersianText(rawContact),
+        normalizedDisplayId: normalizePersianText(displayId)
+      };
+    });
+
+    function robustCopyToClipboard(text) {
+      if (navigator.clipboard && window.isSecureContext) {
+        return navigator.clipboard.writeText(text).catch(() => fallbackCopy(text));
+      }
+      return fallbackCopy(text);
+    }
+
+    function fallbackCopy(text) {
+      return new Promise((resolve, reject) => {
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.position = "fixed";
+        textArea.style.left = "-9999px";
+        textArea.style.top = "0";
+        textArea.setAttribute("readonly", "");
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        textArea.setSelectionRange(0, 99999);
+        try {
+          const successful = document.execCommand('copy');
+          document.body.removeChild(textArea);
+          if (successful) resolve();
+          else reject();
+        } catch (err) {
+          document.body.removeChild(textArea);
+          reject(err);
+        }
+      });
+    }
+
+    const campusModal = document.getElementById('campusModal');
+    document.getElementById('openCampusBtn').addEventListener('click', () => {
+      campusModal.classList.add('active');
+    });
+    document.getElementById('closeCampusModalBtn').addEventListener('click', () => {
+      campusModal.classList.remove('active');
+    });
+
+    const expertsModal = document.getElementById('expertsModal');
+    document.getElementById('openExpertsBtn').addEventListener('click', () => {
+      expertsModal.classList.add('active');
+    });
+    document.getElementById('closeExpertsModalBtn').addEventListener('click', () => {
+      expertsModal.classList.remove('active');
+    });
+
+    const supportModal = document.getElementById('supportModal');
+    document.getElementById('openSupportBtn').addEventListener('click', () => {
+      supportModal.classList.add('active');
+    });
+    document.getElementById('closeSupportModalBtn').addEventListener('click', () => {
+      supportModal.classList.remove('active');
+    });
+
+    [campusModal, expertsModal, supportModal].forEach(modal => {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.classList.remove('active');
+      });
+    });
+
+    const toggleQazvinBtn = document.getElementById('toggleQazvinBtn');
+    const qazvinNumbersList = document.getElementById('qazvinNumbersList');
+    toggleQazvinBtn.addEventListener('click', function() {
+      this.classList.toggle('expanded');
+      qazvinNumbersList.classList.toggle('open');
+    });
+
+    document.querySelectorAll('.accordion-trigger').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const targetId = this.getAttribute('data-target');
+        const targetList = document.getElementById(targetId);
+        if (targetList) {
+          this.classList.toggle('expanded');
+          targetList.classList.toggle('open');
+        }
+      });
+    });
+
+    const searchInput = document.getElementById('searchInput');
+    const clearSearch = document.getElementById('clearSearch');
+    const resultsList = document.getElementById('resultsList');
+    const homeActionsWrapper = document.getElementById('homeActionsWrapper');
+
+    searchInput.addEventListener('input', function() {
+      const q = this.value;
+      if (q.trim().length > 0) {
+        clearSearch.style.display = 'flex';
+        homeActionsWrapper.classList.add('hidden-searching');
+        renderResults(q);
+      } else {
+        clearSearch.style.display = 'none';
+        homeActionsWrapper.classList.remove('hidden-searching');
+        resultsList.innerHTML = '';
+      }
+    });
+
+    clearSearch.addEventListener('click', function() {
+      searchInput.value = '';
+      clearSearch.style.display = 'none';
+      homeActionsWrapper.classList.remove('hidden-searching');
+      resultsList.innerHTML = '';
+      searchInput.focus();
+    });
+
+    function renderResults(rawQuery) {
+      resultsList.innerHTML = '';
+      const normalizedQuery = normalizePersianText(rawQuery);
+
+      if (!normalizedQuery) {
+        resultsList.innerHTML = '';
+        return;
+      }
+
+      const filtered = professors.filter(p => 
+        p.normalizedName.includes(normalizedQuery) || 
+        p.normalizedContact.includes(normalizedQuery) ||
+        p.normalizedDisplayId.includes(normalizedQuery)
+      );
+
+      if (filtered.length === 0) {
+        resultsList.innerHTML = '<div class="no-results">استادی با این مشخصات یافت نشد!</div>';
+        return;
+      }
+
+      filtered.forEach((prof) => {
+        const card = document.createElement('div');
+        card.className = 'result-card';
+
+        let contactContent = '';
+        if (prof.isInstagram) {
+          contactContent = `
+            <div class="contact-glass-pill">
+              <i class="fa-brands fa-instagram" style="color: #ff5483;"></i>
+              <span class="contact-eitaa-id">${prof.displayId}</span>
+            </div>
+          `;
+        } else if (prof.isEitaa) {
+          contactContent = `
+            <div class="contact-glass-pill">
+              <i class="fa-solid fa-comment-dots"></i>
+              <span class="contact-eitaa-id">${prof.displayId}</span>
+            </div>
+          `;
+        } else if (prof.phoneList.length > 1) {
+          contactContent = '';
+        } else {
+          contactContent = `
+            <div class="contact-glass-pill">
+              <i class="fa-solid fa-phone-flip"></i>
+              <span class="contact-digits">${toPersianDigits(prof.contact)}</span>
+            </div>
+          `;
+        }
+
+        const info = document.createElement('div');
+        info.className = 'card-info';
+        info.innerHTML = `
+          <div class="prof-name">${prof.name}</div>
+          ${contactContent}
+        `;
+
+        const actions = document.createElement('div');
+        actions.className = 'card-actions';
+
+        if (prof.isInstagram) {
+          actions.innerHTML = `
+            <a href="${prof.contact}" target="_blank" class="action-btn btn-insta">
+              <i class="fa-brands fa-instagram"></i> ارسال پیام در اینستاگرام
+            </a>
+            <button class="action-btn btn-copy" onclick="handleCopyAction('${prof.displayId}', this)">
+              <i class="fa-regular fa-copy"></i> <span>کپی کردن</span>
+            </button>
+          `;
+        } else if (prof.isEitaa) {
+          actions.innerHTML = `
+            <a href="${prof.contact}" target="_blank" class="action-btn btn-eitaa">
+              <i class="fa-solid fa-paper-plane"></i> ارسال پیام در ایتا
+            </a>
+            <button class="action-btn btn-copy" onclick="handleCopyAction('${prof.displayId}', this)">
+              <i class="fa-regular fa-copy"></i> <span>کپی کردن</span>
+            </button>
+          `;
+        } else if (prof.phoneList.length > 1) {
+          actions.className = 'multi-phone-wrapper';
+          actions.innerHTML = prof.phoneList.map((ph) => `
+            <div class="phone-sub-item">
+              <div class="contact-glass-pill">
+                <i class="fa-solid fa-phone-flip"></i>
+                <span class="contact-digits">${toPersianDigits(ph)}</span>
+              </div>
+              <div class="card-actions" style="max-width: 480px; width: 100%;">
+                <a href="tel:${ph}" class="action-btn btn-call"><i class="fa-solid fa-phone"></i> تماس</a>
+                <button class="action-btn btn-copy" onclick="handleCopyAction('${ph}', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+                <a href="sms:${ph}" class="action-btn btn-sms"><i class="fa-solid fa-comment-sms"></i> پیامک</a>
+              </div>
+            </div>
+          `).join('');
+        } else {
+          actions.innerHTML = `
+            <a href="tel:${prof.contact}" class="action-btn btn-call"><i class="fa-solid fa-phone"></i> تماس</a>
+            <button class="action-btn btn-copy" onclick="handleCopyAction('${prof.contact}', this)"><i class="fa-regular fa-copy"></i> <span>کپی کردن</span></button>
+            <a href="sms:${prof.contact}" class="action-btn btn-sms"><i class="fa-solid fa-comment-sms"></i> پیامک</a>
+          `;
+        }
+
+        card.appendChild(info);
+        card.appendChild(actions);
+        resultsList.appendChild(card);
+      });
+    }
+
+    window.handleCopyAction = function(text, btnElement) {
+      robustCopyToClipboard(text).then(() => {
+        const subItem = btnElement.closest('.phone-sub-item');
+        const card = subItem || btnElement.closest('.result-card') || btnElement.closest('.campus-box-card') || btnElement.closest('.expert-box-card') || btnElement.closest('.qazvin-dept-row') || btnElement.closest('.support-person-row');
+        const digitsElement = card ? card.querySelector('.contact-digits, .contact-eitaa-id') : null;
+        const span = btnElement.querySelector('span');
+        const icon = btnElement.querySelector('i');
+        const originalText = span ? span.getAttribute('data-origin') || span.innerText : 'کپی کردن';
+
+        if (span && !span.getAttribute('data-origin')) {
+          span.setAttribute('data-origin', originalText);
+        }
+
+        if (btnElement._timer) {
+          clearTimeout(btnElement._timer);
+        }
+
+        if (card) {
+          card.classList.add('glow-green');
+        }
+        if (digitsElement) {
+          digitsElement.classList.add('copied-glow');
+        }
+        btnElement.classList.add('copied');
+        if (span) span.innerText = 'کپی شد';
+        if (icon) icon.className = 'fa-solid fa-check';
+
+        btnElement._timer = setTimeout(() => {
+          if (card) {
+            card.classList.remove('glow-green');
+          }
+          if (digitsElement) {
+            digitsElement.classList.remove('copied-glow');
+          }
+          btnElement.classList.remove('copied');
+          if (span) span.innerText = originalText;
+          if (icon) icon.className = 'fa-regular fa-copy';
+          btnElement._timer = null;
+        }, 1800);
+      });
+    };
+  </script>
+</body>
+</html>
