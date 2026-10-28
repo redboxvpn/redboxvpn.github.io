@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حذف هوشمند پس‌زمینه تصویر</title>
+    <style>
+        :root {
+            --bg-main: #0c0d11;
+            --card-bg: rgba(22, 24, 31, 0.75);
+            --border-gold: rgba(212, 175, 55, 0.35);
+            --border-gold-bright: #e6ca65;
+            --gold-accent: #d4af37;
+            --text-main: #f0f2f5;
+            --text-muted: #9ba1b0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, Tahoma, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px 16px;
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 85% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 40%);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 850px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-gold);
+            border-radius: 20px;
+            padding: 32px;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(212, 175, 55, 0.08);
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        header h1 span {
+            color: var(--border-gold-bright);
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        .dropzone {
+            border: 2px dashed var(--border-gold);
+            border-radius: 14px;
+            padding: 36px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .dropzone:hover {
+            border-color: var(--border-gold-bright);
+            background: rgba(212, 175, 55, 0.04);
+        }
+
+        .dropzone svg {
+            width: 44px;
+            height: 44px;
+            stroke: var(--gold-accent);
+            margin-bottom: 10px;
+        }
+
+        .dropzone p {
+            font-size: 15px;
+            color: var(--text-main);
+        }
+
+        .dropzone span {
+            font-size: 12px;
+            color: var(--text-muted);
+            display: block;
+            margin-top: 6px;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .loading-box {
+            display: none;
+            margin: 28px 0;
+        }
+
+        .spinner {
+            width: 38px;
+            height: 38px;
+            border: 3px solid rgba(212, 175, 55, 0.15);
+            border-top: 3px solid var(--border-gold-bright);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 12px;
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        .progress-text {
+            font-size: 14px;
+            color: var(--border-gold-bright);
+        }
+
+        .result-container {
+            display: none;
+            margin-top: 24px;
+        }
+
+        .preview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        @media (max-width: 600px) {
+            .preview-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .preview-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .preview-card span {
+            display: block;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .img-wrapper {
+            width: 100%;
+            height: 230px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #14151b;
+            background-image: 
+                linear-gradient(45deg, #1f222e 25%, transparent 25%), 
+                linear-gradient(-45deg, #1f222e 25%, transparent 25%), 
+                linear-gradient(45deg, transparent 75%, #1f222e 75%), 
+                linear-gradient(-45deg, transparent 75%, #1f222e 75%);
+            background-size: 16px 16px;
+            background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+        }
+
+        .img-wrapper img, .img-wrapper canvas {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 22px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            border: none;
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, #f3db7a 0%, #d4af37 100%);
+            color: #0b0c10;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-main);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-reset {
+            background: transparent;
+            color: var(--text-muted);
+            border: none;
+            text-decoration: underline;
+            cursor: pointer;
+            margin-top: 16px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>حذف هوشمند <span>پس‌زمینه عکس</span></h1>
+            <p>پردازش سبک، سریع و کاملاً درون‌مرورگری بدون افت کیفیت</p>
+        </header>
+
+        <div class="dropzone" id="dropzone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            <p>انتخاب یا رها کردن عکس</p>
+            <span>JPG، PNG یا WEBP</span>
+            <input type="file" id="fileInput" accept="image/*">
+        </div>
+
+        <div class="loading-box" id="loadingBox">
+            <div class="spinner"></div>
+            <p class="progress-text" id="progressText">در حال آماده‌سازی هوش مصنوعی...</p>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <div class="preview-grid">
+                <div class="preview-card">
+                    <span>عکس اصلی</span>
+                    <div class="img-wrapper">
+                        <img id="originalPreview" alt="Original">
+                    </div>
+                </div>
+                <div class="preview-card">
+                    <span>نتیجه نهایی</span>
+                    <div class="img-wrapper" id="canvasWrapper"></div>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button class="btn btn-gold" id="btnDownloadHD">دانلود با کیفیت اصلی (PNG)</button>
+                <button class="btn btn-secondary" id="btnDownloadLow">دانلود کم‌حجم (WebP)</button>
+            </div>
+            <div>
+                <button class="btn-reset" id="btnReset">پردازش یک عکس دیگر</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- اسکریپت ماژولار Transformers.js با پشتیبانی مستقیم WebAssembly -->
+    <script type="module">
+        import { AutoModel, AutoProcessor, env, RawImage } from 'https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2';
+
+        // بهینه‌سازی مسیرها برای جلوگیری از خطای CORS و کش لوکال
+        env.allowLocalModels = false;
+
+        const dropzone = document.getElementById('dropzone');
+        const fileInput = document.getElementById('fileInput');
+        const loadingBox = document.getElementById('loadingBox');
+        const progressText = document.getElementById('progressText');
+        const resultContainer = document.getElementById('resultContainer');
+        const originalPreview = document.getElementById('originalPreview');
+        const canvasWrapper = document.getElementById('canvasWrapper');
+        const btnDownloadHD = document.getElementById('btnDownloadHD');
+        const btnDownloadLow = document.getElementById('btnDownloadLow');
+        const btnReset = document.getElementById('btnReset');
+
+        let model = null;
+        let processor = null;
+        let processedCanvas = null;
+
+        dropzone.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files && e.target.files[0]) processImage(e.target.files[0]);
+        });
+
+        async function initAI() {
+            if (!model || !processor) {
+                progressText.innerText = 'در حال دریافت مدل هوش مصنوعی (فقط بار اول)...';
+                // مدل سبک و فوق‌العاده باکیفیت Bria RMBG 1.4 بهینه‌شده برای مرورگر
+                model = await AutoModel.from_pretrained('briaai/RMBG-1.4', {
+                    progress_callback: (data) => {
+                        if (data.status === 'progress' && data.total) {
+                            const p = Math.round((data.loaded / data.total) * 100);
+                            progressText.innerText = `در حال بارگیری مدل: ${p}%`;
+                        }
+                    }
+                });
+                processor = await AutoProcessor.from_pretrained('briaai/RMBG-1.4');
+            }
+        }
+
+        async function processImage(file) {
+            originalPreview.src = URL.createObjectURL(file);
+            dropzone.style.display = 'none';
+            resultContainer.style.display = 'none';
+            loadingBox.style.display = 'block';
+
+            try {
+                await initAI();
+
+                progressText.innerText = 'در حال جداسازی و تشخیص لبه‌ها...';
+
+                // خواندن عکس با رزولوشن واقعی
+                const image = await RawImage.fromBlob(file);
+                const { pixel_values } = await processor(image);
+                const { output } = await model({ input: pixel_values });
+
+                // ساخت ماسک ترنسپرنسی
+                const mask = await RawImage.fromTensor(output[0].mul(255).to('uint8')).resize(image.width, image.height);
+
+                // ایجاد Canvas با ابعاد اصلی برای حفظ بالاترین کیفیت (HD)
+                const canvas = document.createElement('canvas');
+                canvas.width = image.width;
+                canvas.height = image.height;
+                const ctx = canvas.getContext('2d');
+
+                // رسم عکس اصلی
+                const sourceBitmap = await createImageBitmap(file);
+                ctx.drawImage(sourceBitmap, 0, 0);
+
+                // اعمال ماسک الفا (شفافیت لبه‌ها)
+                const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < mask.data.length; ++i) {
+                    imgData.data[4 * i + 3] = mask.data[i];
+                }
+                ctx.putImageData(imgData, 0, 0);
+
+                processedCanvas = canvas;
+                canvasWrapper.innerHTML = '';
+                canvasWrapper.appendChild(canvas);
+
+                loadingBox.style.display = 'none';
+                resultContainer.style.display = 'block';
+
+            } catch (err) {
+                console.error(err);
+                alert('خطا در پردازش. لطفاً مطمئن شوید فیلترشکن شما روشن است تا مدل هوش مصنوعی در اولین اجرا دانلود شود.');
+                resetUI();
+            }
+        }
+
+        // دانلود با کیفیت اصلی
+        btnDownloadHD.addEventListener('click', () => {
+            if (!processedCanvas) return;
+            const link = document.createElement('a');
+            link.download = `HD-no-bg-${Date.now()}.png`;
+            link.href = processedCanvas.toDataURL('image/png');
+            link.click();
+        });
+
+        // دانلود نسخه سبک
+        btnDownloadLow.addEventListener('click', () => {
+            if (!processedCanvas) return;
+            const maxDim = 900;
+            let w = processedCanvas.width;
+            let h = processedCanvas.height;
+
+            if (w > maxDim || h > maxDim) {
+                if (w > h) {
+                    h = Math.round((h * maxDim) / w);
+                    w = maxDim;
+                } else {
+                    w = Math.round((w * maxDim) / h);
+                    h = maxDim;
+                }
+            }
+
+            const lowCanvas = document.createElement('canvas');
+            lowCanvas.width = w;
+            lowCanvas.height = h;
+            const lCtx = lowCanvas.getContext('2d');
+            lCtx.drawImage(processedCanvas, 0, 0, w, h);
+
+            const link = document.createElement('a');
+            link.download = `compressed-no-bg-${Date.now()}.webp`;
+            link.href = lowCanvas.toDataURL('image/webp', 0.8);
+            link.click();
+        });
+
+        btnReset.addEventListener('click', resetUI);
+
+        function resetUI() {
+            fileInput.value = '';
+            loadingBox.style.display = 'none';
+            resultContainer.style.display = 'none';
+            dropzone.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
